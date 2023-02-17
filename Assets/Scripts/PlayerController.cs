@@ -42,10 +42,14 @@ public class PlayerController : MonoBehaviour
     public float combo_delay;
     public float playerDamagedTime;
     public float max_velocity_y;
-    public int player_sword_attack_power;    // MouseButtonDown(0)
+    public int player_sword_attack_power;   // MouseButtonDown(0)
+    public int player_throw_attack_power;   // MouseButtonDown(1)
 
     // hitbox
     static GameObject hitbox;   // Player's attack collider
+
+    // Throw
+    static GameObject throwObject;
 
     void Awake()
     {
@@ -76,6 +80,9 @@ public class PlayerController : MonoBehaviour
         // hit box default value <- false(InActive)
         hitbox = GetComponentInChildren<HitBoxController>().gameObject;
         hitbox.SetActive(false);
+
+        // Throw
+        throwObject = GetComponentInChildren<ThrowObjectController>().gameObject;
     }
 
     private void Start()
@@ -177,6 +184,7 @@ public class PlayerController : MonoBehaviour
         if (!isCrouch && Input.GetMouseButtonDown(1))
         {
             animator.SetTrigger("throw_trigger");
+            throwObject.GetComponent<ThrowObjectController>().InstantiateClone();
         }
     }
 
@@ -323,6 +331,9 @@ public class PlayerController : MonoBehaviour
         gameObject.GetComponentInChildren<PlayerHealthUI>().setHealthUI(0); // set health bar UI
 
         animator.SetTrigger("OnDead");
+
+        gameObject.layer = 7;   // PlayerDamaged
+        render.color = new Color(1, 1, 1, 0.4f);
 
         if (!playedDeadSound)
         {

@@ -10,6 +10,7 @@ TagManager:
   - HitBox
   - AudioManager
   - Wall
+  - ThrowObject
   layers:
   - Default
   - TransparentFX
