@@ -5,6 +5,8 @@ using UnityEngine;
 public class ThrowObjectController : MonoBehaviour
 {
     public GameObject targetGameObject;
+    public float moveSpeed;
+    public float throw_delay;
 
     public void InstantiateClone()
     {

@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
     private bool soundPlayed = false;
     private bool isDamaged = false;
     private bool playedDeadSound = false; // play dead audioclip only once
+    private bool canThrow = true;
+    private bool canFall_animation = true;
 
     public int health;
     public int max_health;  // auto setting
@@ -181,11 +183,31 @@ public class PlayerController : MonoBehaviour
     // MouseButtonDown(1)
     private void ThrowAttack()
     {
-        if (!isCrouch && Input.GetMouseButtonDown(1))
+        if (canThrow && !isCrouch && Input.GetMouseButtonDown(1))
         {
+            canFall_animation = false;
             animator.SetTrigger("throw_trigger");
             throwObject.GetComponent<ThrowObjectController>().InstantiateClone();
+
+            // throw delay
+            canThrow = false;
+            StartCoroutine(ThrowCoolingTime());
         }
+
+        // can fall animation
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Throw") &&
+            animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8f)
+        {
+            canFall_animation = true;
+        }
+    }
+
+    IEnumerator ThrowCoolingTime()
+    {
+        yield return new WaitForSeconds(
+            GetComponentInChildren<ThrowObjectController>().throw_delay
+        );
+        canThrow = true;
     }
 
     public void Move()
@@ -317,6 +339,12 @@ public class PlayerController : MonoBehaviour
 
         // hit animation
         animator.SetBool("isDamaged", isDamaged);
+
+        // throw animation
+        animator.SetBool("isThrowing", !canThrow);
+
+        // fall animation
+        animator.SetBool("canFall" ,canFall_animation);
     }
 
     // when player dead

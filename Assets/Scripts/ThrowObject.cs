@@ -19,15 +19,18 @@ public class ThrowObject : MonoBehaviour
     Enemy enemy;
 
     private int directionX;
-    public int moveSpeed;
+    private float moveSpeed;
 
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+
         player = GameObject.FindWithTag("Player");
         player_render = player.GetComponent<SpriteRenderer>();
         playerController = player.GetComponent<PlayerController>();
-        animator = GetComponent<Animator>();
+
+        moveSpeed = player.GetComponentInChildren<ThrowObjectController>().moveSpeed;
     }
 
     private void Start()
