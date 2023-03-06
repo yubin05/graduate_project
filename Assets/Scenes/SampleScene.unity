@@ -384,6 +384,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetGameObject: {fileID: 1868209988359799711, guid: 6d4d6f1cd3b5b4742913331490b43f3b, type: 3}
+  moveSpeed: 25
+  throw_delay: 2
 --- !u!1 &276387997
 GameObject:
   m_ObjectHideFlags: 0
