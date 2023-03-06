@@ -52,6 +52,7 @@ public class ThrowObject : MonoBehaviour
             // Enemy Health Decreased
             enemy = collision.gameObject.GetComponent<Enemy>();
             enemy.Hit(playerController.player_throw_attack_power);
+
         }
         else if (collision.transform.tag == "Wall") 
         {
