@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
     private bool playedDeadSound = false; // play dead audioclip only once
     private bool canThrow = true;
     private bool canFall_animation = true;
+    private bool dashing = false;
 
     public int health;
     public int max_health;  // auto setting
@@ -46,6 +47,7 @@ public class PlayerController : MonoBehaviour
     public float max_velocity_y;
     public int player_sword_attack_power;   // MouseButtonDown(0)
     public int player_throw_attack_power;   // MouseButtonDown(1)
+    public float dash_power;
 
     // hitbox
     static GameObject hitbox;   // Player's attack collider
@@ -107,6 +109,7 @@ public class PlayerController : MonoBehaviour
             Crouch();
             Move();
             Jump();
+            Dash();
         }
 
         // player dead
@@ -320,6 +323,49 @@ public class PlayerController : MonoBehaviour
         else { isCrouch = false; }
     }
 
+    private void Dash()
+    {
+        if (!dashing)
+        {
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                dashing = true;
+                animator.SetTrigger("Dash_trigger");
+
+                canInput = false;
+
+                // player is invicible
+                Invincible();
+
+                // dash some distance
+                int direction; float dash_speed;
+                if (render.flipX) { direction = -1; } else { direction = 1; }
+                if (isGrounded) { dash_speed = dash_power; } else { dash_speed = dash_power * 2 / 3 ; }
+                rigid.velocity = new Vector2(direction * dash_speed, rigid.velocity.y);
+
+                // set on freeze position Y
+                rigid.constraints =
+                    RigidbodyConstraints2D.FreezePositionY |
+                    RigidbodyConstraints2D.FreezeRotation;
+
+                // finish dash
+                StartCoroutine(OffDash());
+            }
+        }
+    }
+
+    private IEnumerator OffDash()
+    {
+        yield return new WaitForSeconds(0.3f);
+
+        dashing = false;
+        rigid.velocity = new Vector2(0, 0); // initialize velocity
+        rigid.constraints = RigidbodyConstraints2D.FreezeRotation;  // set off freeze position Y
+
+        canInput = true;
+        Vincible();
+    }
+
     // update animator variable like executing animation every time
     public void Anim_Control()
     {
@@ -345,6 +391,9 @@ public class PlayerController : MonoBehaviour
 
         // fall animation
         animator.SetBool("canFall" ,canFall_animation);
+
+        // dash animation
+        animator.SetBool("Dashing", dashing);
     }
 
     // when player dead
@@ -360,8 +409,7 @@ public class PlayerController : MonoBehaviour
 
         animator.SetTrigger("OnDead");
 
-        gameObject.layer = 7;   // PlayerDamaged
-        render.color = new Color(1, 1, 1, 0.4f);
+        Invincible();
 
         if (!playedDeadSound)
         {
@@ -436,8 +484,7 @@ public class PlayerController : MonoBehaviour
 
         gameObject.GetComponentInChildren<PlayerHealthUI>().setHealthUI(health); // set health bar UI
 
-        gameObject.layer = 7;   // PlayerDamaged
-        render.color = new Color(1, 1, 1, 0.4f);
+        Invincible();
 
         // Player's OnDamage Sound
         audioManager.PlayOneShotAudio("Hurt");
@@ -461,8 +508,7 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(playerDamagedTime);
 
-        gameObject.layer = 6;   // Player
-        render.color = new Color(1, 1, 1, 1);
+        Vincible();
     }
 
     // isGrounded check true and animation excute
@@ -471,5 +517,17 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger("landing_trigger");
         isGrounded = true;
         audioManager.PlayOneShotAudio("Landing");
+    }
+
+    private void Invincible()
+    {
+        gameObject.layer = 7;   // PlayerDamaged
+        render.color = new Color(1, 1, 1, 0.4f);
+    }
+
+    private void Vincible()
+    {
+        gameObject.layer = 6;   // Player
+        render.color = new Color(1, 1, 1, 1);
     }
 }
