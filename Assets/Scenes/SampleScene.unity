@@ -423,6 +423,7 @@ MonoBehaviour:
   audioAttack: {fileID: 8300000, guid: fe752d93a43291a4d83370b83ced2eef, type: 3}
   audioDeath: {fileID: 8300000, guid: fc24e7c649dad25438ae530da0b6935a, type: 3}
   audioHurt: {fileID: 8300000, guid: 34eee2bd5f224f34fa0be90eef65c3bc, type: 3}
+  audioDash: {fileID: 8300000, guid: c5a52a6a0df423f448bb1bb4147df518, type: 3}
 --- !u!4 &276387999
 Transform:
   m_ObjectHideFlags: 0
@@ -3227,6 +3228,51 @@ Transform:
   m_Father: {fileID: 1010047895}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1911156807
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1911156808}
+  - component: {fileID: 1911156809}
+  m_Layer: 6
+  m_Name: Skill_Dash
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1911156808
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911156807}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2058544500}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1911156809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911156807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8b287de5ac9ba04cac036ae0058b6a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dash_cooltime: 5
 --- !u!1 &1951511986
 GameObject:
   m_ObjectHideFlags: 0
@@ -3687,9 +3733,9 @@ GameObject:
   - component: {fileID: 2058544500}
   - component: {fileID: 2058544499}
   - component: {fileID: 2058544498}
-  - component: {fileID: 2058544502}
   - component: {fileID: 2058544504}
   - component: {fileID: 2058544505}
+  - component: {fileID: 2058544502}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -3787,6 +3833,7 @@ Transform:
   - {fileID: 643129117}
   - {fileID: 100235668}
   - {fileID: 220673944}
+  - {fileID: 1911156808}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3802,6 +3849,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bf7818d535e9a845a0cb10ebcd76b7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGrounded: 0
+  canInput: 1
   health: 0
   max_health: 0
   walkSpeed: 5

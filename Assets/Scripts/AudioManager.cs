@@ -11,6 +11,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip audioAttack;
     public AudioClip audioDeath;
     public AudioClip audioHurt;
+    public AudioClip audioDash;
     AudioSource audioSource;
 
     private static AudioClip playAudioClip;
@@ -32,6 +33,7 @@ public class AudioManager : MonoBehaviour
         else if (audioName == "Attack") { audioClip = audioAttack; }
         else if (audioName == "Death") { audioClip = audioDeath; }
         else if (audioName == "Hurt") { audioClip = audioHurt; }
+        else if (audioName == "Dash") { audioClip = audioDash; }
         else 
         { 
             audioClip = null;

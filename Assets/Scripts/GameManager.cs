@@ -6,26 +6,18 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    //GameObject trapObject;
+    // skill cooltime control by enable/disable skill script
+    public IEnumerator OnSkillCoolTime(Object script, float cooltime)
+    {
+        Debug.Log("쿨타임 시작");
 
-    //// Start is called before the first frame update
-    //void Start()
-    //{
-    //    trapObject = GameObject.Find("traps");
-    //}
+        while (cooltime > 1.0f)
+        {
+            cooltime -= Time.deltaTime;
+            // skill_UI.fillAmount = (1.0f / cooltime)
+            yield return new WaitForFixedUpdate();
+        }
 
-    //// Update is called once per frame
-    //void Update()
-    //{
-    //    Debug.Log(trapObject);
-    //    int random = Random.Range(0, 1);
-    //    if (random >= 0.5)
-    //    {
-    //        trapObject.SetActive(true);
-    //    }
-    //    else
-    //    {
-    //        trapObject.SetActive(false);
-    //    }
-    //}
+        Debug.Log("쿨타임 종료");
+    }
 }
