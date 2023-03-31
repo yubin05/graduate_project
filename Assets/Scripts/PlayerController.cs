@@ -18,7 +18,6 @@ public class PlayerController : MonoBehaviour
     GameObject audio_;
     AudioManager audioManager;
 
-    private bool isGrounded;
     private bool beingCombo;
     private float runSpeed;
     private float moveSpeed;
@@ -29,14 +28,14 @@ public class PlayerController : MonoBehaviour
     private bool isAttacking = false;
     private float time_after_attack;
     private int combo_count = 0;
-    private bool canInput = true;
     private bool soundPlayed = false;
     private bool isDamaged = false;
     private bool playedDeadSound = false; // play dead audioclip only once
     private bool canThrow = true;
     private bool canFall_animation = true;
-    private bool dashing = false;
 
+    public bool isGrounded;
+    public bool canInput = true;
     public int health;
     public int max_health;  // auto setting
     public float walkSpeed;
@@ -109,7 +108,6 @@ public class PlayerController : MonoBehaviour
             Crouch();
             Move();
             Jump();
-            Dash();
         }
 
         // player dead
@@ -323,49 +321,6 @@ public class PlayerController : MonoBehaviour
         else { isCrouch = false; }
     }
 
-    private void Dash()
-    {
-        if (!dashing)
-        {
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                dashing = true;
-                animator.SetTrigger("Dash_trigger");
-
-                canInput = false;
-
-                // player is invicible
-                Invincible();
-
-                // dash some distance
-                int direction; float dash_speed;
-                if (render.flipX) { direction = -1; } else { direction = 1; }
-                if (isGrounded) { dash_speed = dash_power; } else { dash_speed = dash_power * 2 / 3 ; }
-                rigid.velocity = new Vector2(direction * dash_speed, rigid.velocity.y);
-
-                // set on freeze position Y
-                rigid.constraints =
-                    RigidbodyConstraints2D.FreezePositionY |
-                    RigidbodyConstraints2D.FreezeRotation;
-
-                // finish dash
-                StartCoroutine(OffDash());
-            }
-        }
-    }
-
-    private IEnumerator OffDash()
-    {
-        yield return new WaitForSeconds(0.3f);
-
-        dashing = false;
-        rigid.velocity = new Vector2(0, 0); // initialize velocity
-        rigid.constraints = RigidbodyConstraints2D.FreezeRotation;  // set off freeze position Y
-
-        canInput = true;
-        Vincible();
-    }
-
     // update animator variable like executing animation every time
     public void Anim_Control()
     {
@@ -392,8 +347,7 @@ public class PlayerController : MonoBehaviour
         // fall animation
         animator.SetBool("canFall" ,canFall_animation);
 
-        // dash animation
-        animator.SetBool("Dashing", dashing);
+        
     }
 
     // when player dead
@@ -519,15 +473,27 @@ public class PlayerController : MonoBehaviour
         audioManager.PlayOneShotAudio("Landing");
     }
 
-    private void Invincible()
+    public void Invincible()
     {
         gameObject.layer = 7;   // PlayerDamaged
         render.color = new Color(1, 1, 1, 0.4f);
     }
 
-    private void Vincible()
+    public void Vincible()
     {
-        gameObject.layer = 6;   // Player
+        gameObject.layer = 6;   // Playerd  
         render.color = new Color(1, 1, 1, 1);
+    }
+
+    // skill cooltime control by enable/disable skill script
+    public void OnSkillCoolTime(GameObject obj, float cooltime)
+    {
+        obj.SetActive(false);   // being cooltime
+        StartCoroutine(OffSkillCoolTime(obj, cooltime));
+    }
+    private IEnumerator OffSkillCoolTime(GameObject obj, float cooltime)
+    {
+        yield return new WaitForSeconds(cooltime);
+        obj.SetActive(true);    // finish cooltime
     }
 }
