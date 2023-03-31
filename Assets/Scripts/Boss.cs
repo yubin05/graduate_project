@@ -55,6 +55,9 @@ public class Boss : MonoBehaviour
     {
         Anim_Control();
 
+        // prevent collider bug with littttle mov
+        if (isStaggered) { rigid.velocity = new Vector2(moveDirection * moveSpeed * 0.1f, rigid.velocity.y); }
+
         // Player detecting
         if (transform.position.x - player.transform.position.x >= 0)
         {

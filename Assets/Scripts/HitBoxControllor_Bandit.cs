@@ -10,6 +10,7 @@ public class HitBoxControllor_Bandit : MonoBehaviour
     // Boss_Bandit
     GameObject bandit;
     SpriteRenderer bandit_render;
+    Boss_Bandit bandit_script;
 
     // player
     PlayerController player_script;
@@ -23,8 +24,9 @@ public class HitBoxControllor_Bandit : MonoBehaviour
 
         bandit = transform.root.gameObject;
         bandit_render = bandit.GetComponent<SpriteRenderer>();
+        bandit_script = bandit.GetComponent<Boss_Bandit>();
         offset_x_minus = colliderOfCollision.offset.x;
-        offset_x_minus = offset_x_plus * (-1);
+        offset_x_plus = offset_x_minus * (-1);
     }
 
     private void Update()
@@ -45,7 +47,9 @@ public class HitBoxControllor_Bandit : MonoBehaviour
                                                 // hit Player
         {
             player_script = collision.gameObject.GetComponent<PlayerController>();
-            player_script.Hit(transform, bandit.GetComponent<Boss_Bandit>().attackPower);
+            if (collision.gameObject != null) { player_script.Hit(transform, bandit.GetComponent<Boss_Bandit>().attackPower); }
+            else { bandit_script.OffHitBox2D(); }
         }
     }
+
 }
