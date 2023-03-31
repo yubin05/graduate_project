@@ -12,6 +12,7 @@ TagManager:
   - Wall
   - ThrowObject
   - GameManager
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -24,8 +25,8 @@ TagManager:
   - Enemy
   - EnemyDead
   - Platform
-  - 
-  - 
+  - Boss
+  - BossDead
   - 
   - 
   - 

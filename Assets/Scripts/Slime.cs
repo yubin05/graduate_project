@@ -7,7 +7,6 @@ public class Slime : Enemy
     protected override void Awake()
     {
         base.Awake();
-        max_health = health;
         moveSpeed = 1;
     }
 

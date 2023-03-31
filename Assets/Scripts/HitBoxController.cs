@@ -15,8 +15,8 @@ public class HitBoxController : MonoBehaviour
     private float offset_x_plus;
     private float offset_x_minus;
 
-    // Enemy
-    Enemy enemy;
+    // Enemy & Boss
+    Enemy enemy; Boss boss;
 
     private void Start()
     {
@@ -49,6 +49,12 @@ public class HitBoxController : MonoBehaviour
         {
             enemy = collision.gameObject.GetComponent<Enemy>();
             enemy.Hit(playerController.player_sword_attack_power);
+        }
+        if (collision.gameObject.layer == 11)    // Boss(Layer)
+            // hit boss
+        {
+            boss = collision.gameObject.GetComponent<Boss>();
+            boss.Hit(playerController.player_sword_attack_power);
         }
     }
 }
