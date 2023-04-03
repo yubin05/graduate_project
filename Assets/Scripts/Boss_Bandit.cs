@@ -10,7 +10,7 @@ public class Boss_Bandit : Boss
     bool attacking_animation = false;      // attack motion
     bool attack_triggered = false;      // variable for prevent keeping hitbox
 
-    bool dash_attack_triggered = false; // variable for tie dash_attack_percent
+    bool dash_attack_triggered = false; // variable for tie dash_attack_percent and prevent keeping dash_attack() method
 
     // dash attack percentage
     private float dash_attack_percentage = 1;
@@ -101,14 +101,36 @@ public class Boss_Bandit : Boss
 
     private void Dash_Attack()
     {
-        // prevent attack pattern
-        dash_attack_triggered = true; attack_triggered = true;
+        // prevent attack pattern && move
+        dash_attack_triggered = true; moveSwitch = false; attack_triggered = true;
 
-        rigid.velocity = new Vector2(moveDirection * moveSpeed * 5f, rigid.velocity.y);     // fast move
-        //// teleport
-        //Vector2 desitination = new Vector2(player.transform.position.x, transform.position.y);
-        //transform.position = Vector2.MoveTowards(transform.position, desitination, 5f);
+        // teleport
+        render.color = new Color(1, 1, 1, 0.5f);    // effect on
+        StartCoroutine(Teleport());
+        dash_attack_triggered = false;
+    }
 
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Walk")) { animator.speed = 3f; }
+    IEnumerator Teleport()
+    {
+        yield return new WaitForSeconds(1f);
+
+        float position_offset_x = 1.5f;
+        if (render.flipX) { position_offset_x *= -1f; }
+        transform.position = new Vector2(player.transform.position.x + position_offset_x, transform.position.y);
+
+        render.color = new Color(1, 1, 1, 1);   // effect off
+
+        // attacking
+        attack_triggered = false;
+
+        // after a while other constraints set off
+        StartCoroutine(AfterTeleportSetOffConstrarints());
+    }
+
+    IEnumerator AfterTeleportSetOffConstrarints()
+    {
+        yield return new WaitForSeconds(1f);
+
+        moveSwitch = true;
     }
 }

@@ -28,6 +28,7 @@ public class Boss : MonoBehaviour
 
     protected int moveSpeed;
     protected int moveDirection;
+    protected bool moveSwitch = true;    //move when this switch on
 
     // when hit by player, boss is stagger for a while
     protected bool isStaggered = false;
@@ -55,7 +56,7 @@ public class Boss : MonoBehaviour
     {
         Anim_Control();
 
-        // prevent collider bug with littttle mov
+        // prevent collider bug with littttle move
         if (isStaggered) { rigid.velocity = new Vector2(moveDirection * moveSpeed * 0.1f, rigid.velocity.y); }
 
         // Player detecting
@@ -88,11 +89,14 @@ public class Boss : MonoBehaviour
     {
         if (rightThanPlayerX) { moveDirection = -1; }   // left move because player exist left than boss
         else { moveDirection = 1; }                     // right move because player exist light than boss
-        
-        // when player close boss, boss move to player
-        if (distanceAbsDifferenceOfPlayer <= 8f && !isStaggered)
+
+        if (moveSwitch)
         {
-            rigid.velocity = new Vector2(moveDirection * moveSpeed, rigid.velocity.y);
+            // when player close boss, boss move to player
+            if (distanceAbsDifferenceOfPlayer <= 8f && !isStaggered)
+            {
+                rigid.velocity = new Vector2(moveDirection * moveSpeed, rigid.velocity.y);
+            }
         }
 
         // if hole exist front, boss turn
