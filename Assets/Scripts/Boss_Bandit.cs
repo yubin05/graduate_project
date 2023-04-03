@@ -7,9 +7,13 @@ public class Boss_Bandit : Boss
     // hitbox
     static GameObject hitbox_bandit;   // Bandit's attack collider
 
-    // attack motion
-    public bool attacking = false;
+    bool attacking_animation = false;      // attack motion
     bool attack_triggered = false;      // variable for prevent keeping hitbox
+
+    bool dash_attack_triggered = false; // variable for tie dash_attack_percent
+
+    // dash attack percentage
+    private float dash_attack_percentage = 1;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -42,14 +46,21 @@ public class Boss_Bandit : Boss
         else if (distanceAbsDifferenceOfPlayer > 3f)
         {
             isStaggered = false;
-            attacking = false;
+            attacking_animation = false;
+
+            if (distanceAbsDifferenceOfPlayer > 8f)
+            {
+                float temp = Random.Range(0.0f, 1.0f);
+                if (dash_attack_triggered) { temp = (dash_attack_percentage / 100); }
+                if (temp <= (dash_attack_percentage/100)) { Dash_Attack(); }
+            }
         }
     }
 
     protected override void Anim_Control()
     {
         base.Anim_Control();
-        animator.SetBool("isAttacking", attacking);
+        animator.SetBool("isAttacking", attacking_animation);
     }
 
     public override void Attack()
@@ -57,7 +68,7 @@ public class Boss_Bandit : Boss
         base.Attack();
 
         isStaggered = true; // stop during attacking player
-        attacking = true;  animator.SetTrigger("attack_trigger");
+        attacking_animation = true;  animator.SetTrigger("attack_trigger");
 
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") &&
             animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.5f)
@@ -78,7 +89,7 @@ public class Boss_Bandit : Boss
         yield return new WaitForSeconds(0.1f);
         hitbox_bandit.SetActive(false);
 
-        attacking = false;
+        attacking_animation = false;
         StartCoroutine(AfterAttackDelay());
     }
 
@@ -86,5 +97,18 @@ public class Boss_Bandit : Boss
     {
         yield return new WaitForSeconds(1f);
         attack_triggered = false;   isStaggered = false;
+    }
+
+    private void Dash_Attack()
+    {
+        // prevent attack pattern
+        dash_attack_triggered = true; attack_triggered = true;
+
+        rigid.velocity = new Vector2(moveDirection * moveSpeed * 5f, rigid.velocity.y);     // fast move
+        //// teleport
+        //Vector2 desitination = new Vector2(player.transform.position.x, transform.position.y);
+        //transform.position = Vector2.MoveTowards(transform.position, desitination, 5f);
+
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Walk")) { animator.speed = 3f; }
     }
 }
