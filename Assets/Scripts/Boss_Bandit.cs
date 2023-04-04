@@ -13,7 +13,7 @@ public class Boss_Bandit : Boss
     bool dash_attack_triggered = false; // variable for tie dash_attack_percent and prevent keeping dash_attack() method
 
     // dash attack percentage
-    private float dash_attack_percentage = 1;
+    private int dash_attack_percentage = 1;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -40,19 +40,25 @@ public class Boss_Bandit : Boss
             render.flipX = true;
         }
 
+        int temp = Random.Range(1, 101);   // dash attack trigger percentage
         // when boss close player, trigger attacked
-        if (distanceAbsDifferenceOfPlayer <= 2f && !attack_triggered) { Attack(); }
+        if (distanceAbsDifferenceOfPlayer <= 3f)
+        {
+            if (!attack_triggered)
+            {
+                attack_triggered = true;
+                Attack();
+            }
+        }
         // when player out hitbox, set off attacking
         else if (distanceAbsDifferenceOfPlayer > 3f)
         {
             isStaggered = false;
-            attacking_animation = false;
+            attacking_animation = false;    attack_triggered = false;
 
             if (distanceAbsDifferenceOfPlayer > 8f)
             {
-                float temp = Random.Range(0.0f, 1.0f);
-                if (dash_attack_triggered) { temp = (dash_attack_percentage / 100); }
-                if (temp <= (dash_attack_percentage/100)) { Dash_Attack(); }
+                if (!dash_attack_triggered && temp <= (dash_attack_percentage)) { Dash_Attack(); }
             }
         }
     }
@@ -61,6 +67,12 @@ public class Boss_Bandit : Boss
     {
         base.Anim_Control();
         animator.SetBool("isAttacking", attacking_animation);
+
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") &&
+            animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.5f)
+        {
+            OnHitBox2D();
+        }
     }
 
     public override void Attack()
@@ -69,13 +81,6 @@ public class Boss_Bandit : Boss
 
         isStaggered = true; // stop during attacking player
         attacking_animation = true;  animator.SetTrigger("attack_trigger");
-
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") &&
-            animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.5f)
-        {
-            attack_triggered = true;
-            OnHitBox2D();
-        }
     }
 
     void OnHitBox2D()
@@ -107,7 +112,6 @@ public class Boss_Bandit : Boss
         // teleport
         render.color = new Color(1, 1, 1, 0.5f);    // effect on
         StartCoroutine(Teleport());
-        dash_attack_triggered = false;
     }
 
     IEnumerator Teleport()
@@ -131,6 +135,6 @@ public class Boss_Bandit : Boss
     {
         yield return new WaitForSeconds(1f);
 
-        moveSwitch = true;
+        dash_attack_triggered = false; moveSwitch = true;
     }
 }

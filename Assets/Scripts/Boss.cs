@@ -16,6 +16,9 @@ public class Boss : MonoBehaviour
     protected AudioManager audioManager;
     protected bool playedDeadSound = false; // play dead audioclip only once
 
+    // move related variable
+    protected float velocity_x_abs;
+
     public int health;
     public int max_health;  // auto setting
 
@@ -57,7 +60,7 @@ public class Boss : MonoBehaviour
         Anim_Control();
 
         // prevent collider bug with littttle move
-        if (isStaggered) { rigid.velocity = new Vector2(moveDirection * moveSpeed * 0.1f, rigid.velocity.y); }
+        if (isStaggered) { rigid.velocity = new Vector2(moveDirection * moveSpeed * 0.01f, rigid.velocity.y); }
 
         // Player detecting
         if (transform.position.x - player.transform.position.x >= 0)
@@ -81,8 +84,28 @@ public class Boss : MonoBehaviour
     protected virtual void Anim_Control()
     {
         // move animation
-        animator.SetFloat("velocity_x_abs", Mathf.Abs(rigid.velocity.x));
+        velocity_x_abs = Mathf.Abs(rigid.velocity.x);
+        animator.SetFloat("velocity_x_abs", velocity_x_abs);
+
+        //// when hit by player, boss stop
+        //if (animator.GetCurrentAnimatorStateInfo(0).IsName("Hurt"))
+        //{
+        //    isStaggered = true;
+        //    StartCoroutine(AfterHitDelay());
+        //}
+
+        // when boss move, move animation always trigger
+        if (velocity_x_abs > 0.02f && !animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+        { 
+            animator.Play("Walk");
+        }
     }
+
+    //IEnumerator AfterHitDelay()
+    //{
+    //    yield return new WaitForSeconds(0.5f);
+    //    isStaggered = false;
+    //}
 
     // move route
     public virtual void Move()
@@ -203,7 +226,7 @@ public class Boss : MonoBehaviour
 
     public virtual IEnumerator OffHitAnimation()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         
         animator.SetBool("isDamaged", false);
         isStaggered = false;
