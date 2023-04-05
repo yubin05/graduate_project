@@ -84,9 +84,9 @@ public class Player_Skill_Dash : MonoBehaviour
 
     private IEnumerator OffDash()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.5f);
+        dashing = false; animator.Play("Idle", -1);
 
-        dashing = false;
         rigid.velocity = new Vector2(0, 0); // initialize velocity
         rigid.constraints = RigidbodyConstraints2D.FreezeRotation;  // set off freeze position Y
 

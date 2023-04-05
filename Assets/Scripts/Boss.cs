@@ -16,6 +16,9 @@ public class Boss : MonoBehaviour
     protected AudioManager audioManager;
     protected bool playedDeadSound = false; // play dead audioclip only once
 
+    // move related variable
+    protected float velocity_x_abs;
+
     public int health;
     public int max_health;  // auto setting
 
@@ -28,6 +31,8 @@ public class Boss : MonoBehaviour
 
     protected int moveSpeed;
     protected int moveDirection;
+    protected bool moveSwitch = true;    //move when this switch on
+    protected bool moveAnimationTriggered = true;
 
     // when hit by player, boss is stagger for a while
     protected bool isStaggered = false;
@@ -55,8 +60,8 @@ public class Boss : MonoBehaviour
     {
         Anim_Control();
 
-        // prevent collider bug with littttle mov
-        if (isStaggered) { rigid.velocity = new Vector2(moveDirection * moveSpeed * 0.1f, rigid.velocity.y); }
+        // prevent collider bug with littttle move
+        if (isStaggered) { rigid.velocity = new Vector2(moveDirection * moveSpeed * 0.01f, rigid.velocity.y); }
 
         // Player detecting
         if (transform.position.x - player.transform.position.x >= 0)
@@ -80,19 +85,43 @@ public class Boss : MonoBehaviour
     protected virtual void Anim_Control()
     {
         // move animation
-        animator.SetFloat("velocity_x_abs", Mathf.Abs(rigid.velocity.x));
+        velocity_x_abs = Mathf.Abs(rigid.velocity.x);
+        animator.SetFloat("velocity_x_abs", velocity_x_abs);
+        animator.SetFloat("velocity_y", rigid.velocity.y);
+
+        //// when hit by player, boss stop
+        //if (animator.GetCurrentAnimatorStateInfo(0).IsName("Hurt"))
+        //{
+        //    isStaggered = true;
+        //    StartCoroutine(AfterHitDelay());
+        //}
+
+        // when boss move, move animation always trigger
+        if (velocity_x_abs > 0.02f && !animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+        { 
+            animator.Play("Walk");
+        }
     }
+
+    //IEnumerator AfterHitDelay()
+    //{
+    //    yield return new WaitForSeconds(0.5f);
+    //    isStaggered = false;
+    //}
 
     // move route
     public virtual void Move()
     {
         if (rightThanPlayerX) { moveDirection = -1; }   // left move because player exist left than boss
         else { moveDirection = 1; }                     // right move because player exist light than boss
-        
-        // when player close boss, boss move to player
-        if (distanceAbsDifferenceOfPlayer <= 8f && !isStaggered)
+
+        if (moveSwitch)
         {
-            rigid.velocity = new Vector2(moveDirection * moveSpeed, rigid.velocity.y);
+            // when player close boss, boss move to player
+            if (distanceAbsDifferenceOfPlayer <= 8f && !isStaggered)
+            {
+                rigid.velocity = new Vector2(moveDirection * moveSpeed, rigid.velocity.y);
+            }
         }
 
         // if hole exist front, boss turn
@@ -199,7 +228,7 @@ public class Boss : MonoBehaviour
 
     public virtual IEnumerator OffHitAnimation()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         
         animator.SetBool("isDamaged", false);
         isStaggered = false;
