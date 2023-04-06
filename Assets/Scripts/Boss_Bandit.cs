@@ -23,11 +23,18 @@ public class Boss_Bandit : Boss
 
     private bool down_attacking = false;
 
+    private bool dead_sound_triggered = false;
+    private bool walk_sound_triggered = false;
+
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
         moveSpeed = 2;
+
+        // get audio manager
+        audio_ = GameObject.Find("AudioManager_Bandit");
+        audioManager = audio_.GetComponent<AudioManager_Bandit>();
 
         // hit box default value <- false(InActive)
         hitbox_bandit_left_right = GetComponentInChildren<HitBoxControllor_Bandit>().gameObject;
@@ -41,6 +48,7 @@ public class Boss_Bandit : Boss
     protected override void Update()
     {
         base.Update();
+        MoveSound();
         //Debug.Log($"attack_triggered: {attack_triggered}, dash_attack_triggered: {dash_attack_triggered}, jump_attack_triggered: {jump_attack_triggered}");
 
         // Player detecting
@@ -96,10 +104,16 @@ public class Boss_Bandit : Boss
     {
         base.Anim_Control();
 
-        animator.SetBool("isAttacking", attacking_animation);      
+        animator.SetBool("isAttacking", attacking_animation);
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") &&
             animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.5f)
         {
+            // attack sound time control
+            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.60f &&
+                animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.61f)
+            {
+                audioManager.PlayOneShotAudio("Attack", 0.8f, 0.7f);
+            }
             OnHitBox2D_left_right();
         }
 
@@ -124,7 +138,7 @@ public class Boss_Bandit : Boss
         base.Attack();
 
         isStaggered_velocity = true; // stop during attacking player
-        attacking_animation = true;  animator.SetTrigger("attack_trigger");
+        attacking_animation = true; animator.SetTrigger("attack_trigger");
     }
 
     void OnHitBox2D_left_right()
@@ -141,11 +155,11 @@ public class Boss_Bandit : Boss
         attacking_animation = false;
         StartCoroutine(AfterAttackDelay());
     }
-    
+
     IEnumerator AfterAttackDelay()
     {
         yield return new WaitForSeconds(1f);
-        SetOffTriggers();   isStaggered_velocity = false;
+        SetOffTriggers(); isStaggered_velocity = false;
     }
 
     private void Dash_Attack()
@@ -184,8 +198,9 @@ public class Boss_Bandit : Boss
 
     private void Jump()
     {
-        jump_animation = true;  animator.SetTrigger("jump_trigger"); moveSwitch = false;
+        jump_animation = true; animator.SetTrigger("jump_trigger"); moveSwitch = false;
         rigid.AddForce(new Vector2(moveDirection * (distanceAbsXDifferenceOfPlayer) * 100, jump_power));
+        audioManager.PlayOneShotAudio("Jump", 0.3f);
         StartCoroutine(AfterJumpSetOffConstrarints());
     }
 
@@ -207,7 +222,7 @@ public class Boss_Bandit : Boss
         hitbox_bandit_down.SetActive(true);
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("DownAttack") &&
             animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8f)
-        { 
+        {
             StartCoroutine(OffHitBox2D_down());
         }
     }
@@ -241,5 +256,49 @@ public class Boss_Bandit : Boss
     void SetOffTriggers()
     {
         attack_triggered = false; dash_attack_triggered = false; jump_attack_triggered = false;
+    }
+
+    // only sound implement
+    public override void Hit(int player_attack_power)
+    {
+        audioManager.PlayOneShotAudio("Hurt", 0.8f);
+        base.Hit(player_attack_power);
+    }
+    public override void Dead()
+    {
+        if (!dead_sound_triggered)
+        {
+            audioManager.PlayAudio("Death", 1f, 0.5f);
+            dead_sound_triggered = true;
+        }
+        base.Dead();
+    }
+    public override void ActuallyMove()
+    {
+        base.ActuallyMove();
+
+        //if (!jump_attack_triggered && !walk_sound_triggered && rigid.velocity.x >= 0.2f)
+        //{ 
+        //    audioManager.PlayAudio("Walk", 0.7f, 0.6f);
+        //    walk_sound_triggered = true;
+        //    WalkSoundOff();
+        //}
+    }
+
+    private void MoveSound()
+    {
+        if (!jump_attack_triggered && !walk_sound_triggered && rigid.velocity.x >= 0.5f)
+        {
+            audioManager.PlayOneShotAudio("Walk", 0.7f, 0.6f);
+            walk_sound_triggered = true;
+            WalkSoundOff();
+        }
+    }
+
+
+    IEnumerator WalkSoundOff()
+    {
+        yield return new WaitForSeconds(0.5f);
+        walk_sound_triggered = false;
     }
 }

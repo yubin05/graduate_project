@@ -4,46 +4,23 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public AudioClip audioWalk;
-    public AudioClip audioRun;
-    public AudioClip audioJump;
-    public AudioClip audioLanding;
-    public AudioClip audioAttack;
-    public AudioClip audioDeath;
-    public AudioClip audioHurt;
-    public AudioClip audioDash;
-    AudioSource audioSource;
-
-    private static AudioClip playAudioClip;
+    protected AudioSource audioSource;
+    protected static AudioClip playAudioClip;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         audioSource = GetComponent<AudioSource>();
         playAudioClip = null;
     }
 
-    private AudioClip checkAudioName(string audioName)
+    protected virtual AudioClip checkAudioName(string audioName)
     {
-        AudioClip audioClip;
-        if (audioName == "Walk") { audioClip = audioWalk; }
-        else if (audioName == "Run") { audioClip = audioRun; }
-        else if (audioName == "Jump") { audioClip = audioJump; }
-        else if (audioName == "Landing") { audioClip = audioLanding; }
-        else if (audioName == "Attack") { audioClip = audioAttack; }
-        else if (audioName == "Death") { audioClip = audioDeath; }
-        else if (audioName == "Hurt") { audioClip = audioHurt; }
-        else if (audioName == "Dash") { audioClip = audioDash; }
-        else 
-        { 
-            audioClip = null;
-            Debug.LogError("Can't find audio clip");
-        }
-
-        return audioClip;
+        // this method require to override in subclass
+        return null;
     }
 
-    public void PlayAudio(string audioName, float volume=1f, float pitch=1f)
+    public virtual void PlayAudio(string audioName, float volume=1f, float pitch=1f)
     {
         playAudioClip = checkAudioName(audioName);
         audioSource.clip = playAudioClip;
@@ -53,7 +30,7 @@ public class AudioManager : MonoBehaviour
         playAudioClip = null;
     }
 
-    public void PlayOneShotAudio(string audioName, float volume=1f, float pitch=1f)
+    public virtual void PlayOneShotAudio(string audioName, float volume=1f, float pitch=1f)
     {
         playAudioClip = checkAudioName(audioName);
         audioSource.pitch = pitch;

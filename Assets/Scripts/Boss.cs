@@ -49,10 +49,6 @@ public class Boss : MonoBehaviour
 
     protected virtual void Start()
     {
-        // get audio manager
-        audio_ = GameObject.FindWithTag("AudioManager");
-        audioManager = audio_.GetComponent<AudioManager>();
-
         render.flipX = false;
         max_health = health;
     }
@@ -123,7 +119,7 @@ public class Boss : MonoBehaviour
             // when player close boss, boss move to player
             if (distanceAbsXDifferenceOfPlayer <= 8f && !isStaggered_velocity)
             {
-                rigid.velocity = new Vector2(moveDirection * moveSpeed, rigid.velocity.y);
+                ActuallyMove(); // this method is actually moving and output sound
             }
         }
 
@@ -134,6 +130,12 @@ public class Boss : MonoBehaviour
         {
             render.flipX = !render.flipX;   // turn
         }
+    }
+
+    public virtual void ActuallyMove()
+    {
+        rigid.velocity = new Vector2(moveDirection * moveSpeed, rigid.velocity.y);
+        // sound method implement by subclass
     }
 
     // when boss detect player and boss attack player

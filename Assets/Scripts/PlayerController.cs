@@ -91,8 +91,8 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         // get audio manager
-        audio_ = GameObject.FindWithTag("AudioManager");
-        audioManager = audio_.GetComponent<AudioManager>();
+        audio_ = GameObject.Find("AudioManager_Player");
+        audioManager = audio_.GetComponent<AudioManager_Player>();
     }
 
     // Update is called once per frame
