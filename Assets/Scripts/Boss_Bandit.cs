@@ -5,7 +5,8 @@ using UnityEngine;
 public class Boss_Bandit : Boss
 {
     // hitbox
-    static GameObject hitbox_bandit;   // Bandit's attack collider
+    static GameObject hitbox_bandit_left_right;   // Bandit's left and right attack collider
+    static GameObject hitbox_bandit_down;   // Bandit's down attack collider
 
     bool attacking_animation = false;      // attack motion
     bool attack_triggered = false;      // variable for prevent keeping hitbox
@@ -15,10 +16,12 @@ public class Boss_Bandit : Boss
     bool jump_animation = false;
     bool jump_attack_triggered = false; // prevent keeping jump_attack() method
 
-    private int dash_attack_percentage = 10;
-    private int jump_attack_percentage = 5;
+    private int dash_attack_percentage = 15;
+    private int jump_attack_percentage = 10;
 
     private int jump_power = 500;
+
+    private bool down_attacking = false;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -27,14 +30,19 @@ public class Boss_Bandit : Boss
         moveSpeed = 2;
 
         // hit box default value <- false(InActive)
-        hitbox_bandit = GetComponentInChildren<HitBoxControllor_Bandit>().gameObject;
-        hitbox_bandit.SetActive(false);
+        hitbox_bandit_left_right = GetComponentInChildren<HitBoxControllor_Bandit>().gameObject;
+        hitbox_bandit_left_right.SetActive(false);
+
+        hitbox_bandit_down = GetComponentInChildren<HitBoxControllor_Bandit_DownAttack>().gameObject;
+        hitbox_bandit_down.SetActive(false);
     }
 
     // Update is called once per frame
     protected override void Update()
     {
         base.Update();
+        //Debug.Log($"attack_triggered: {attack_triggered}, dash_attack_triggered: {dash_attack_triggered}, jump_attack_triggered: {jump_attack_triggered}");
+
         // Player detecting
         if (rightThanPlayerX)
         {
@@ -45,22 +53,10 @@ public class Boss_Bandit : Boss
             render.flipX = true;
         }
 
-        int temp = Random.Range(1, 1001);   // all attack trigger percentage
-        // bandit sometimes trigger dash_attack
-        if (!jump_attack_triggered && temp <= jump_attack_percentage)
-        {
-            SetOnTriggers();
-            Jump_Attack();
-        }
-        // when bandit jump high, trigger down attack
-        if (rigid.velocity.y < -3f)
-        {
-            isStaggered = true;
-            rigid.velocity = new Vector2(rigid.velocity.x, -100f);
-        }
-        
+        int temp = Random.Range(1, 10001);   // all attack trigger percentage
+
         // when boss close player, trigger attacked
-        if (distanceAbsDifferenceOfPlayer <= 2f)
+        if (distanceAbsXDifferenceOfPlayer <= 2f)
         {
             if (!attack_triggered)
             {
@@ -68,15 +64,30 @@ public class Boss_Bandit : Boss
                 Attack();
             }
         }
-        // when player out hitbox, set off attacking
-        else if (distanceAbsDifferenceOfPlayer > 2f)
+        // when player out hitbox range, set off attacking
+        else if (distanceAbsXDifferenceOfPlayer > 2f)
         {
-            isStaggered = false;
-            attacking_animation = false;    attack_triggered = false;
+            isStaggered_velocity = false;
+            attacking_animation = false;
+            SetOffTriggers();
 
-            if (distanceAbsDifferenceOfPlayer > 8f)
+            // bandit sometimes trigger dash_attack
+            if (distanceAbsXDifferenceOfPlayer > 8f)
             {
-                if (!dash_attack_triggered && temp <= (dash_attack_percentage)) { Dash_Attack(); }
+                if (!dash_attack_triggered && (temp) <= (dash_attack_percentage))
+                {
+                    SetOnTriggers();
+                    Dash_Attack();
+                }
+            }
+            // bandit sometimes trigger jump_attack
+            else if (distanceAbsXDifferenceOfPlayer > 4f)
+            {
+                if (!jump_attack_triggered && (temp) <= (jump_attack_percentage))
+                {
+                    SetOnTriggers();
+                    Jump();
+                }
             }
         }
     }
@@ -89,46 +100,58 @@ public class Boss_Bandit : Boss
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") &&
             animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.5f)
         {
-            OnHitBox2D();
+            OnHitBox2D_left_right();
         }
 
         animator.SetBool("isJumpAttacking", jump_animation);
-        if (jump_animation) { animator.Play("Jump"); }
+        // when bandit jump high, trigger down attack
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Jump") &&
+            distanceAbsXDifferenceOfPlayer < 2f)
+        {
+            down_attacking = true;
+            animator.SetTrigger("down_attack_trigger"); isStaggered_position = true;
+        }
+        animator.SetBool("down_attacking", down_attacking);
+        // when bandit down attack, positon constraints set off
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("DownAttack"))
+        {
+            StartCoroutine(DownAttack());
+        }
     }
 
     public override void Attack()
     {
         base.Attack();
 
-        isStaggered = true; // stop during attacking player
+        isStaggered_velocity = true; // stop during attacking player
         attacking_animation = true;  animator.SetTrigger("attack_trigger");
     }
 
-    void OnHitBox2D()
+    void OnHitBox2D_left_right()
     {
-        hitbox_bandit.SetActive(true);
-        StartCoroutine(OffHitBox2D());
+        hitbox_bandit_left_right.SetActive(true);
+        StartCoroutine(OffHitBox2D_left_right());
     }
 
-    public IEnumerator OffHitBox2D()
+    public IEnumerator OffHitBox2D_left_right()
     {
         yield return new WaitForSeconds(0.1f);
-        hitbox_bandit.SetActive(false);
+        hitbox_bandit_left_right.SetActive(false);
 
         attacking_animation = false;
         StartCoroutine(AfterAttackDelay());
     }
-
+    
     IEnumerator AfterAttackDelay()
     {
         yield return new WaitForSeconds(1f);
-        SetOffTriggers();   isStaggered = false;
+        SetOffTriggers();   isStaggered_velocity = false;
     }
 
     private void Dash_Attack()
     {
         // prevent attack pattern && move
-        SetOnTriggers(); moveSwitch = false;
+        moveSwitch = false;
 
         // teleport
         render.color = new Color(1, 1, 1, 0.5f);    // effect on
@@ -159,17 +182,55 @@ public class Boss_Bandit : Boss
         dash_attack_triggered = false; jump_attack_triggered = false; moveSwitch = true;
     }
 
-    private void Jump_Attack()
+    private void Jump()
     {
-        jump_animation = true;  animator.SetTrigger("jump_trigger");
-        rigid.AddForce(new Vector2(moveDirection * distanceAbsDifferenceOfPlayer * 300, jump_power));
-        StartCoroutine(AfterSetOffJumpAttackConstrarints());
+        jump_animation = true;  animator.SetTrigger("jump_trigger"); moveSwitch = false;
+        rigid.AddForce(new Vector2(moveDirection * (distanceAbsXDifferenceOfPlayer) * 100, jump_power));
+        StartCoroutine(AfterJumpSetOffConstrarints());
     }
 
-    IEnumerator AfterSetOffJumpAttackConstrarints()
+    // this method execute continous by anim_control method not once
+    IEnumerator DownAttack()
+    {
+        yield return new WaitForSeconds(0.3f);
+        isStaggered_position = false;
+
+        //rigid.velocity = Vector2.down * 100f;
+        rigid.AddForce(Vector2.down * 100f);
+
+        OnHitBox2D_down();
+        StartCoroutine(AfterDownAttackSetOffConstrarints());
+    }
+
+    void OnHitBox2D_down()
+    {
+        hitbox_bandit_down.SetActive(true);
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("DownAttack") &&
+            animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8f)
+        { 
+            StartCoroutine(OffHitBox2D_down());
+        }
+    }
+
+    public IEnumerator OffHitBox2D_down()
+    {
+        yield return new WaitForSeconds(0.5f);
+        hitbox_bandit_down.SetActive(false);
+
+        attacking_animation = false;
+        StartCoroutine(AfterAttackDelay());
+    }
+
+    IEnumerator AfterJumpSetOffConstrarints()
     {
         yield return new WaitForSeconds(1f);
-        SetOffTriggers();   jump_animation = false;
+        jump_animation = false; moveSwitch = true;
+    }
+
+    IEnumerator AfterDownAttackSetOffConstrarints()
+    {
+        yield return new WaitForSeconds(0.5f);
+        SetOffTriggers();
     }
 
     // setting all trigger related attack because prevent other attack pattern while one attack pattern

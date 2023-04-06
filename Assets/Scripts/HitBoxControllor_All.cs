@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// left and right hitbox superclass script
 public class HitBoxControllor_All : MonoBehaviour
 {
     // hit box controller

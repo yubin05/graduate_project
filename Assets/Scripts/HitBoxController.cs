@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// player's left and right hitbox
 public class HitBoxController : HitBoxControllor_All
 {
     // Enemy & Boss

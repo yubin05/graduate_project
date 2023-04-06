@@ -27,7 +27,7 @@ public class Boss : MonoBehaviour
 
     // boss position.x compare player position.x
     protected bool rightThanPlayerX = true;
-    protected float distanceAbsDifferenceOfPlayer;
+    protected float distanceAbsXDifferenceOfPlayer;
 
     protected int moveSpeed;
     protected int moveDirection;
@@ -35,7 +35,8 @@ public class Boss : MonoBehaviour
     protected bool moveAnimationTriggered = true;
 
     // when hit by player, boss is stagger for a while
-    protected bool isStaggered = false;
+    protected bool isStaggered_velocity = false;    // boss velocity stop
+    protected bool isStaggered_position = false;    // boss position constraints all stop
 
     protected virtual void Awake()
     {
@@ -61,7 +62,15 @@ public class Boss : MonoBehaviour
         Anim_Control();
 
         // prevent collider bug with littttle move
-        if (isStaggered) { rigid.velocity = new Vector2(moveDirection * moveSpeed * 0.01f, rigid.velocity.y); }
+        if (isStaggered_velocity) { rigid.velocity = new Vector2(moveDirection * moveSpeed * 0.01f, rigid.velocity.y); }
+
+        if (isStaggered_position) {
+            rigid.constraints =
+                RigidbodyConstraints2D.FreezePositionX |
+                RigidbodyConstraints2D.FreezePositionY |
+                RigidbodyConstraints2D.FreezeRotation;
+        }
+        else { rigid.constraints = RigidbodyConstraints2D.FreezeRotation; }
 
         // Player detecting
         if (transform.position.x - player.transform.position.x >= 0)
@@ -72,7 +81,7 @@ public class Boss : MonoBehaviour
         {
             rightThanPlayerX = false;
         }
-        distanceAbsDifferenceOfPlayer = Mathf.Abs(transform.position.x - player.transform.position.x);
+        distanceAbsXDifferenceOfPlayer = Mathf.Abs(transform.position.x - player.transform.position.x);
         
         // Boss move but dead
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Death")) { Move(); }
@@ -95,12 +104,6 @@ public class Boss : MonoBehaviour
         //    isStaggered = true;
         //    StartCoroutine(AfterHitDelay());
         //}
-
-        // when boss move, move animation always trigger
-        if (velocity_x_abs > 0.02f && !animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
-        { 
-            animator.Play("Walk");
-        }
     }
 
     //IEnumerator AfterHitDelay()
@@ -118,7 +121,7 @@ public class Boss : MonoBehaviour
         if (moveSwitch)
         {
             // when player close boss, boss move to player
-            if (distanceAbsDifferenceOfPlayer <= 8f && !isStaggered)
+            if (distanceAbsXDifferenceOfPlayer <= 8f && !isStaggered_velocity)
             {
                 rigid.velocity = new Vector2(moveDirection * moveSpeed, rigid.velocity.y);
             }
@@ -216,7 +219,7 @@ public class Boss : MonoBehaviour
         animator.SetBool("isDamaged", true);
         animator.SetTrigger("OnDamaged");
 
-        isStaggered = true;
+        isStaggered_velocity = true;
 
         // delay animation
         StartCoroutine(OffHitAnimation());
@@ -231,6 +234,6 @@ public class Boss : MonoBehaviour
         yield return new WaitForSeconds(1f);
         
         animator.SetBool("isDamaged", false);
-        isStaggered = false;
+        isStaggered_velocity = false;
     }
 }

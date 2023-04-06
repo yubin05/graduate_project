@@ -22,7 +22,7 @@ public class HitBoxControllor_Bandit : HitBoxControllor_All
         {
             player_script = collision.gameObject.GetComponent<PlayerController>();
             if (collision.gameObject != null) { player_script.Hit(transform, bandit_script.attackPower); }
-            else { bandit_script.OffHitBox2D(); }
+            else { bandit_script.OffHitBox2D_left_right(); }
         }
     }
 
