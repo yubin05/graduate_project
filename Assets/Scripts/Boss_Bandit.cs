@@ -17,7 +17,7 @@ public class Boss_Bandit : Boss
     bool jump_attack_triggered = false; // prevent keeping jump_attack() method
 
     private int dash_attack_percentage = 15;
-    private int jump_attack_percentage = 10;
+    private int jump_attack_percentage = 100;
 
     private int jump_power = 500;
 
@@ -130,6 +130,13 @@ public class Boss_Bandit : Boss
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("DownAttack"))
         {
             StartCoroutine(DownAttack());
+
+            // down attack sound time control
+            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.40f &&
+                animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.41f)
+            {
+                audioManager.PlayOneShotAudio("Attack", 0.8f, 0.7f);
+            }
         }
 
         // walk sound control
