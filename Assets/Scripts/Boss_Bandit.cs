@@ -48,8 +48,10 @@ public class Boss_Bandit : Boss
     protected override void Update()
     {
         base.Update();
-        MoveSound();
         //Debug.Log($"attack_triggered: {attack_triggered}, dash_attack_triggered: {dash_attack_triggered}, jump_attack_triggered: {jump_attack_triggered}");
+        Debug.Log($"jump_attack_triggered: {jump_attack_triggered}, walk_sound_triggered: {walk_sound_triggered}");
+
+        if (!jump_attack_triggered) { MoveSound(); }
 
         // Player detecting
         if (rightThanPlayerX)
@@ -160,6 +162,7 @@ public class Boss_Bandit : Boss
     {
         yield return new WaitForSeconds(1f);
         SetOffTriggers(); isStaggered_velocity = false;
+        walk_sound_triggered = false;
     }
 
     private void Dash_Attack()
@@ -198,7 +201,9 @@ public class Boss_Bandit : Boss
 
     private void Jump()
     {
+        walk_sound_triggered = true;
         jump_animation = true; animator.SetTrigger("jump_trigger"); moveSwitch = false;
+        
         rigid.AddForce(new Vector2(moveDirection * (distanceAbsXDifferenceOfPlayer) * 100, jump_power));
         audioManager.PlayOneShotAudio("Jump", 0.3f);
         StartCoroutine(AfterJumpSetOffConstrarints());
@@ -238,8 +243,8 @@ public class Boss_Bandit : Boss
 
     IEnumerator AfterJumpSetOffConstrarints()
     {
-        yield return new WaitForSeconds(1f);
-        jump_animation = false; moveSwitch = true;
+        yield return new WaitForSeconds(1f);        
+        jump_animation = false; moveSwitch = true; 
     }
 
     IEnumerator AfterDownAttackSetOffConstrarints()
@@ -273,32 +278,32 @@ public class Boss_Bandit : Boss
         }
         base.Dead();
     }
-    public override void ActuallyMove()
-    {
-        base.ActuallyMove();
+    //public override void ActuallyMove()
+    //{
+    //    base.ActuallyMove();
 
-        //if (!jump_attack_triggered && !walk_sound_triggered && rigid.velocity.x >= 0.2f)
-        //{ 
-        //    audioManager.PlayAudio("Walk", 0.7f, 0.6f);
-        //    walk_sound_triggered = true;
-        //    WalkSoundOff();
-        //}
-    }
+    //    //if (!jump_attack_triggered && !walk_sound_triggered && rigid.velocity.x >= 0.2f)
+    //    //{ 
+    //    //    audioManager.PlayAudio("Walk", 0.7f, 0.6f);
+    //    //    walk_sound_triggered = true;
+    //    //    WalkSoundOff();
+    //    //}
+    //}
 
     private void MoveSound()
     {
-        if (!jump_attack_triggered && !walk_sound_triggered && rigid.velocity.x >= 0.5f)
+        if (!walk_sound_triggered && Mathf.Abs(rigid.velocity.x) >= 0.5f)
         {
-            audioManager.PlayOneShotAudio("Walk", 0.7f, 0.6f);
             walk_sound_triggered = true;
-            WalkSoundOff();
+            audioManager.PlayAudio("Walk", 1f, 0.9f);
+            StartCoroutine(WalkSoundOff());
         }
     }
-
 
     IEnumerator WalkSoundOff()
     {
         yield return new WaitForSeconds(0.5f);
         walk_sound_triggered = false;
+        //jump_attack_triggered = false;
     }
 }
