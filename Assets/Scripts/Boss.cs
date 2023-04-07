@@ -119,7 +119,7 @@ public class Boss : MonoBehaviour
             // when player close boss, boss move to player
             if (distanceAbsXDifferenceOfPlayer <= 8f && !isStaggered_velocity)
             {
-                ActuallyMove(); // this method is actually moving and output sound
+                rigid.velocity = new Vector2(moveDirection * moveSpeed, rigid.velocity.y);
             }
         }
 
@@ -130,12 +130,6 @@ public class Boss : MonoBehaviour
         {
             render.flipX = !render.flipX;   // turn
         }
-    }
-
-    public virtual void ActuallyMove()
-    {
-        rigid.velocity = new Vector2(moveDirection * moveSpeed, rigid.velocity.y);
-        // sound method implement by subclass
     }
 
     // when boss detect player and boss attack player

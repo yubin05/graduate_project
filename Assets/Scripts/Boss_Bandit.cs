@@ -49,9 +49,7 @@ public class Boss_Bandit : Boss
     {
         base.Update();
         //Debug.Log($"attack_triggered: {attack_triggered}, dash_attack_triggered: {dash_attack_triggered}, jump_attack_triggered: {jump_attack_triggered}");
-        Debug.Log($"jump_attack_triggered: {jump_attack_triggered}, walk_sound_triggered: {walk_sound_triggered}");
-
-        if (!jump_attack_triggered) { MoveSound(); }
+        //Debug.Log($"jump_attack_triggered: {jump_attack_triggered}, walk_sound_triggered: {walk_sound_triggered}");
 
         // Player detecting
         if (rightThanPlayerX)
@@ -132,6 +130,17 @@ public class Boss_Bandit : Boss
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("DownAttack"))
         {
             StartCoroutine(DownAttack());
+        }
+
+        // walk sound control
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
+        {
+            if (!walk_sound_triggered)
+            {
+                walk_sound_triggered = true;
+                audioManager.PlayAudio("Walk", 1f, 1f);
+                StartCoroutine(WalkSoundOff());
+            }
         }
     }
 
@@ -278,32 +287,10 @@ public class Boss_Bandit : Boss
         }
         base.Dead();
     }
-    //public override void ActuallyMove()
-    //{
-    //    base.ActuallyMove();
-
-    //    //if (!jump_attack_triggered && !walk_sound_triggered && rigid.velocity.x >= 0.2f)
-    //    //{ 
-    //    //    audioManager.PlayAudio("Walk", 0.7f, 0.6f);
-    //    //    walk_sound_triggered = true;
-    //    //    WalkSoundOff();
-    //    //}
-    //}
-
-    private void MoveSound()
-    {
-        if (!walk_sound_triggered && Mathf.Abs(rigid.velocity.x) >= 0.5f)
-        {
-            walk_sound_triggered = true;
-            audioManager.PlayAudio("Walk", 1f, 0.9f);
-            StartCoroutine(WalkSoundOff());
-        }
-    }
 
     IEnumerator WalkSoundOff()
     {
         yield return new WaitForSeconds(0.5f);
         walk_sound_triggered = false;
-        //jump_attack_triggered = false;
     }
 }

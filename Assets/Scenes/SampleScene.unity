@@ -893,7 +893,7 @@ MonoBehaviour:
   audioHurt: {fileID: 8300000, guid: 6eed1d4910b159e47b255811034c70b9, type: 3}
   audioAttack: {fileID: 8300000, guid: d64b174524183c64a8c20d502895fdf6, type: 3}
   audioDeath: {fileID: 8300000, guid: 92fb27327c015b2488aa46b07388357c, type: 3}
-  audioWalk: {fileID: 8300000, guid: e9776639705b7bd4a807b4177139c9ca, type: 3}
+  audioWalk: {fileID: 8300000, guid: c4cd8ce7b242fc94781600a4d520cdae, type: 3}
 --- !u!1 &947357545
 GameObject:
   m_ObjectHideFlags: 0
