@@ -8,6 +8,7 @@ public class Slime : Enemy
     {
         base.Awake();
         moveSpeed = 1;
+        isRightDefaultValue = false;
     }
 
     public override void Hit(int player_attack_power)
