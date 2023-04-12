@@ -22,6 +22,9 @@ public class Enemy : MonoBehaviour
     protected int moveSpeed;
     protected int moveDirection;
 
+    // this variable's initial value write subclass before base.Start()
+    protected bool isRightDefaultValue;
+
     protected virtual void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -35,7 +38,8 @@ public class Enemy : MonoBehaviour
         audio_ = GameObject.FindWithTag("AudioManager");
         audioManager = audio_.GetComponent<AudioManager>();
 
-        render.flipX = true;
+        if (isRightDefaultValue) { render.flipX = false; }
+        else { render.flipX = true; }
         max_health = health;
     }
 
@@ -51,8 +55,17 @@ public class Enemy : MonoBehaviour
     // move route
     public virtual void Move()
     {
-        if (render.flipX) { moveDirection = -1; }   // left
-        else { moveDirection = 1; }                 // right
+        if (isRightDefaultValue)
+        {
+            if (render.flipX) { moveDirection = -1; }   // left
+            else { moveDirection = 1; }                 // right
+        }
+        else
+        {
+            if (!render.flipX) { moveDirection = -1; }   // left
+            else { moveDirection = 1; }                 // right
+        }
+        
         rigid.velocity = new Vector2(moveDirection * moveSpeed, rigid.velocity.y);
 
         // if hole exist front, enemy turn
