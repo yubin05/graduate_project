@@ -8,7 +8,15 @@ public class Slime : Enemy
     {
         base.Awake();
         moveSpeed = 1;
-        isRightDefaultValue = false;
+        isRightDefaultValue = true;
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+
+        // get audio manager
+        audioManager = gameObject.GetComponentInChildren<AudioManager_Slime>();
     }
 
     public override void Hit(int player_attack_power)
