@@ -50,6 +50,9 @@ public class Enemy : MonoBehaviour
 
         // Enemy is dead
         if (health <= 0) { Dead(); }
+
+        // Attack
+        Attack();
     }
 
     // move route
@@ -71,6 +74,7 @@ public class Enemy : MonoBehaviour
         // if hole exist front, enemy turn
         RaycastHit2D hit = Physics2D.Raycast(new Vector2(rigid.position.x + (moveDirection/2.0f), rigid.position.y),
                                                 Vector3.down, 1f, LayerMask.GetMask("Floor", "Platform"));
+        Debug.DrawRay(new Vector2(rigid.position.x + (moveDirection / 2.0f), rigid.position.y), Vector3.down, Color.green);   // raycast test
         if (hit.collider == null)
         {
             render.flipX = !render.flipX;   // turn
@@ -103,6 +107,12 @@ public class Enemy : MonoBehaviour
         gameObject.GetComponentInChildren<EnemyHealthUI>().setHealthUI(0); // set health bar UI
 
         // if animation finish, this object destroy
+        DestroyEnemyObject();
+    }
+
+    // if animation finish, this object destroy
+    protected virtual void DestroyEnemyObject()
+    {
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Death") &&
             animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f)
         {
