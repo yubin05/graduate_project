@@ -69,6 +69,7 @@ public class Rino : Enemy
             if (detect)
             {
                 isDetectedPlayer = true;
+                audioManager.PlayOneShotAudio("Run");
                 break;
             }
         }
@@ -93,5 +94,22 @@ public class Rino : Enemy
     {
         moveSpeed = defaultMoveSpeed;
         contactPower = defaultContactPower;
+    }
+
+    public override void Hit(int player_attack_power)
+    {
+        base.Hit(player_attack_power);
+
+        // play hurt sound
+        audioManager.PlayOneShotAudio("Hurt", 0.5f, 0.8f);
+    }
+    public override void Dead()
+    {
+        if (!playedDeadSound)
+        {
+            audioManager.PlayOneShotAudio("Death", 1f, 0.6f);    // Enemy Dead Sound
+            playedDeadSound = true;
+        }
+        base.Dead();
     }
 }

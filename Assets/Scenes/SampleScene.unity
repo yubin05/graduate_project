@@ -527,9 +527,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b23442c8be1a16468a743374f7d7975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioHurt: {fileID: 0}
-  audioDeath: {fileID: 0}
-  audioRun: {fileID: 0}
+  audioHurt: {fileID: 8300000, guid: 2167a4425d3fd454cbf2d33d4925ad7c, type: 3}
+  audioDeath: {fileID: 8300000, guid: d5807ae84b228f54998b2c586619dae8, type: 3}
+  audioRun: {fileID: 8300000, guid: 09688ce1aa940774d940f46011256562, type: 3}
 --- !u!1 &276387997
 GameObject:
   m_ObjectHideFlags: 0
