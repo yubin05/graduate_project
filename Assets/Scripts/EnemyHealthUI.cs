@@ -9,7 +9,7 @@ public class EnemyHealthUI : HealthUIController
     {
         base.Start();
 
-        health_amount = transform.root.GetComponentInChildren<Enemy>().health;
-        max_health_amount = transform.root.GetComponentInChildren<Enemy>().max_health;
+        health_amount = GameObject.FindWithTag("Enemy").GetComponent<Enemy>().health;
+        max_health_amount = GameObject.FindWithTag("Enemy").GetComponent<Enemy>().max_health;
     }
 }

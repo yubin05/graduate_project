@@ -9,7 +9,6 @@ public class Enemy : MonoBehaviour
     protected Animator animator;
 
     // AudioManager
-    protected GameObject audio_;
     protected AudioManager audioManager;
     protected bool playedDeadSound = false; // play dead audioclip only once
 
@@ -34,17 +33,18 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Start()
     {
-        // get audio manager
-        audio_ = GameObject.FindWithTag("AudioManager");
-        audioManager = audio_.GetComponent<AudioManager>();
-
         if (isRightDefaultValue) { render.flipX = false; }
         else { render.flipX = true; }
         max_health = health;
+
+        // get each enemy's audioManager in subclass's Start method
     }
 
     protected virtual void Update()
     {
+        // animation value control
+        Anim_Control();
+
         // Enemy move but dead
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Death")) { Move(); }
 
@@ -53,6 +53,11 @@ public class Enemy : MonoBehaviour
 
         // Attack
         Attack();
+    }
+
+    protected virtual void Anim_Control()
+    {
+        // nothing yet
     }
 
     // move route
@@ -101,6 +106,7 @@ public class Enemy : MonoBehaviour
         animator.SetTrigger("OnDead");
 
         gameObject.layer = 9;   // Enemy Dead
+        rigid.velocity = Vector2.zero;  // stop
 
         // when other script execute this method directly
         health = 0;

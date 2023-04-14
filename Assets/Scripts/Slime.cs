@@ -11,6 +11,14 @@ public class Slime : Enemy
         isRightDefaultValue = true;
     }
 
+    protected override void Start()
+    {
+        base.Start();
+
+        // get audio manager
+        audioManager = gameObject.GetComponentInChildren<AudioManager_Slime>();
+    }
+
     public override void Hit(int player_attack_power)
     {
         base.Hit(player_attack_power);
