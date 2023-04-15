@@ -11,6 +11,8 @@ public class Rino : Enemy
     private int defaultContactPower;
     private bool isDetectedPlayer;
 
+    private bool isPlayedRunSound = false;
+
     protected override void Awake()
     {
         base.Awake();
@@ -69,7 +71,12 @@ public class Rino : Enemy
             if (detect)
             {
                 isDetectedPlayer = true;
-                audioManager.PlayOneShotAudio("Run");
+                if (!isPlayedRunSound)
+                {
+                    isPlayedRunSound = true;
+                    audioManager.PlayOneShotAudio("Run", 3f);
+                    StartCoroutine(RunSoundOff());
+                }
                 break;
             }
         }
@@ -84,7 +91,12 @@ public class Rino : Enemy
         {
             NotRun();
         }
-    }   
+    }
+    IEnumerator RunSoundOff()
+    {
+        yield return new WaitForSeconds(0.5f);
+        isPlayedRunSound = false;
+    }
     private void Run()
     {
         moveSpeed = runSpeed;
