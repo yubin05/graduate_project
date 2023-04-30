@@ -6,18 +6,29 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // skill cooltime control by enable/disable skill script
-    public IEnumerator OnSkillCoolTime(Object script, float cooltime)
-    {
-        Debug.Log("ÄðÅ¸ÀÓ ½ÃÀÛ");
+    //GameObject player;
+    //GameObject player_detect_teleport_point;
+    //private bool onDetectTeleportPointTrigger;
 
-        while (cooltime > 1.0f)
-        {
-            cooltime -= Time.deltaTime;
-            // skill_UI.fillAmount = (1.0f / cooltime)
-            yield return new WaitForFixedUpdate();
-        }
+    //private void Start()
+    //{
+    //    player = GameObject.FindWithTag("Player");
 
-        Debug.Log("ÄðÅ¸ÀÓ Á¾·á");
-    }
+    //    onDetectTeleportPointTrigger = true;
+    //    player_detect_teleport_point = player.transform.Find("Detect_Teleport_Point").gameObject;
+    //    onDetectTeleportPointTrigger = false;
+    //}
+
+    //private void Update()
+    //{
+    //    if (onDetectTeleportPointTrigger) { player_detect_teleport_point.SetActive(true); }
+    //    else { player_detect_teleport_point.SetActive(false); }
+    //}
+
+    //// this method called by Wizard_DetectPlayer.cs
+    //public void SetDetectTeleportPointTrigger(string wizard_name, bool boolValue)
+    //{
+    //    player_detect_teleport_point.GetComponent<Player_DetectTeleportPoint>().wizard_name = wizard_name;
+    //    onDetectTeleportPointTrigger = boolValue;
+    //}
 }

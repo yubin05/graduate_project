@@ -106,7 +106,7 @@ public class Enemy : MonoBehaviour
         animator.SetTrigger("OnDead");
 
         gameObject.layer = 9;   // Enemy Dead
-        rigid.velocity = Vector2.zero;  // stop
+        if (rigid.bodyType != RigidbodyType2D.Static) { rigid.velocity = Vector2.zero; }  // stop
 
         // when other script execute this method directly
         health = 0;
