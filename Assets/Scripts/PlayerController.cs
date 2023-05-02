@@ -416,17 +416,23 @@ public class PlayerController : MonoBehaviour
     {
         // Player hit by enemy
         {
-            canInput = false;    // player can't input key
-            health -= hitDamage;    // health decreased
+            Hit(hitDamage);
 
             int reDircX = (transform.position.x - otherTransform.position.x > 0) ? 1 : -1;
             int reDircY = (transform.position.y - otherTransform.position.y > 1) ? 1 : 2;
             Vector2 reActDirc = new Vector2(reDircX, reDircY).normalized;
             rigid.AddForce(reActDirc * 10, ForceMode2D.Impulse);
-
-            // player's hit effect
-            OnDamaged();
         }
+    }
+
+    // not physical reaction version
+    public void Hit(int hitDamage)
+    {
+        canInput = false;    // player can't input key
+        health -= hitDamage;    // health decreased
+
+        // player's hit effect
+        OnDamaged();
     }
 
     // player's hit effect

@@ -6,7 +6,7 @@ public class Wizard_DetectTeleportPoint : MonoBehaviour
 {
     List<Transform> teleport_points = new List<Transform>();
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Teleport_Point")
         {

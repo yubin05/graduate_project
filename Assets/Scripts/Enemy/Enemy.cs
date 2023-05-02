@@ -6,7 +6,9 @@ public class Enemy : MonoBehaviour
 {
     protected Rigidbody2D rigid;
     protected SpriteRenderer render;
-    protected Animator animator;
+
+    // Player Object
+    protected GameObject player;
 
     // AudioManager
     protected AudioManager audioManager;
@@ -24,11 +26,16 @@ public class Enemy : MonoBehaviour
     // this variable's initial value write subclass before base.Start()
     protected bool isRightDefaultValue;
 
+    [HideInInspector]
+    public Animator animator;
+
     protected virtual void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         render = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+
+        player = GameObject.FindWithTag("Player");
     }
 
     protected virtual void Start()
