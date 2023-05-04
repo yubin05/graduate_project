@@ -55,7 +55,7 @@ public class Player_Skill_Dash : MonoBehaviour
 
     private void Dash()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && player.layer != 7)
         {
             dashing = true;
             animator.SetTrigger("Dash_trigger");
