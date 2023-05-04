@@ -46,6 +46,14 @@ public class Wizard : Enemy
         isRightDefaultValue = false;
     }
 
+    protected override void Start()
+    {
+        base.Start();
+
+        // get audio manager
+        audioManager = gameObject.GetComponentInChildren<AudioManager_Wizard>();
+    }
+
     protected override void Anim_Control()
     {
         animator.SetBool("canAttack", canAttack);
@@ -70,6 +78,9 @@ public class Wizard : Enemy
         foreach (SpriteRenderer render in renders) { render.color = Color.black; }
         gameObject.layer = 9;   // enemydead
 
+        // teleport sound
+        audioManager.PlayAudio("Teleport", 0.5f);
+
         // actually teleport method
         StartCoroutine(MovePosition(teleport_points, random_index));
     }
@@ -82,7 +93,7 @@ public class Wizard : Enemy
 
     IEnumerator MovePosition(List<Transform> teleport_points, int random_index)
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         transform.position = new Vector2(teleport_points[random_index].position.x, teleport_points[random_index].position.y - 0.25f);
 
         // Finish Teleport Signal
@@ -132,10 +143,22 @@ public class Wizard : Enemy
 
         // explosion signal
         foreach (SpriteRenderer render in renders) { render.color = new Color(1, 1, 1, 0.4f); }
-        //explosion signal sound at this line
+        
+        // dead sound play once
+        if (!playedDeadSound)
+        {
+            playedDeadSound = true;
+            StartCoroutine(PlayAudio_Explosion());
+        }
 
         StartCoroutine(StartExplosion());
         StartCoroutine(DelayDestroy());
+    }
+
+    IEnumerator PlayAudio_Explosion()
+    {
+        yield return new WaitForSeconds(0.3f);
+        audioManager.PlayAudio("Explosion", 0.5f); // explosion sound
     }
 
     IEnumerator StartExplosion()
@@ -152,6 +175,7 @@ public class Wizard : Enemy
 
     public override void Attack()
     {
+        if (isDead) { return; }
         if (!canAttack || isAttackCoolTime) { return; }
 
         isAttackCoolTime = true;
@@ -170,6 +194,14 @@ public class Wizard : Enemy
     IEnumerator ShotFireBall()
     {
         yield return new WaitForSeconds(0.3f);
+        audioManager.PlayAudio("FireBall", 1f, 0.8f);
         wizard_fireBall_controller.Instantiate_Fireball();
-    }    
+    }
+
+    public override void Hit(int player_attack_power)
+    {
+        base.Hit(player_attack_power);
+
+        audioManager.PlayOneShotAudio("Hurt", 0.5f, 1.5f);
+    }
 }

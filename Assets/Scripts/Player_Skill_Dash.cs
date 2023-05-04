@@ -33,7 +33,7 @@ public class Player_Skill_Dash : MonoBehaviour
         player_script = player.GetComponent<PlayerController>();
 
         // get audio manager
-        audio_ = GameObject.FindWithTag("AudioManager");
+        audio_ = transform.parent.Find("AudioManager_Player").gameObject;
         audioManager = audio_.GetComponent<AudioManager>();
 
         // get rigidbody2D
@@ -61,7 +61,7 @@ public class Player_Skill_Dash : MonoBehaviour
             animator.SetTrigger("Dash_trigger");
 
             player_script.canInput = false;
-            audioManager.PlayOneShotAudio("Dash");
+            audioManager.PlayOneShotAudio("Dash", 5f);
 
             // player is invicible
             player_script.Invincible();
