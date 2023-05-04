@@ -34,8 +34,6 @@ public class PlayerController : MonoBehaviour
     private bool canThrow = true;
     private bool canFall_animation = true;
 
-    public bool isGrounded;
-    public bool canInput = true;
     public int health;
     public int max_health;  // auto setting
     public float walkSpeed;
@@ -47,6 +45,9 @@ public class PlayerController : MonoBehaviour
     public int player_sword_attack_power;   // MouseButtonDown(0)
     public int player_throw_attack_power;   // MouseButtonDown(1)
     public float dash_power;
+
+    [HideInInspector] public bool isGrounded;
+    [HideInInspector] public bool canInput = true;
 
     // hitbox
     static GameObject hitbox;   // Player's attack collider
@@ -385,37 +386,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        // Player is Landing
-        if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "Floor")
-        {
-            Landing();
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Floor")
-        {
-            isGrounded = false;
-            collision.isTrigger = false;
-        }
-    }
-
-    //private void OnTriggerEnter2D(Collider2D collider)
-    //{      
-    //    // detect floor
-    //    if (collider.gameObject.tag == "Floor")
-    //    {
-    //        //Debug.Log(transform.position.y - collider.transform.position.y);  // parameter test
-    //        if (transform.position.y - collider.transform.position.y > floorColiderSubtract)
-    //        {
-    //            collider.isTrigger = false;
-    //            Landing();
-    //        }
-    //    }
-    //}
+    
 
     // following method controled by other script
     public void Hit(Transform otherTransform, int hitDamage)
@@ -478,7 +449,8 @@ public class PlayerController : MonoBehaviour
     }
 
     // isGrounded check true and animation excute
-    private void Landing()
+    // this method called by other scripts
+    public void Landing()
     {
         animator.SetTrigger("landing_trigger");
         isGrounded = true;

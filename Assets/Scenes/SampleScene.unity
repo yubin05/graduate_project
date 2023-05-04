@@ -1045,6 +1045,7 @@ GameObject:
   - component: {fileID: 947357549}
   - component: {fileID: 947357551}
   - component: {fileID: 947357550}
+  - component: {fileID: 947357552}
   m_Layer: 10
   m_Name: Platforms
   m_TagString: Platform
@@ -1647,7 +1648,7 @@ TilemapCollider2D:
   m_GameObject: {fileID: 947357545}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 44c51ed69dfddc94e980b7a09df06ea4, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 1
@@ -1719,6 +1720,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &947357552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947357545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8791f6ff0eb23c443a1dfb262f029cf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &980049168
 GameObject:
   m_ObjectHideFlags: 0
@@ -2095,6 +2108,7 @@ GameObject:
   - component: {fileID: 1390893592}
   - component: {fileID: 1390893594}
   - component: {fileID: 1390893593}
+  - component: {fileID: 1390893595}
   m_Layer: 3
   m_Name: floors
   m_TagString: Floor
@@ -2110,7 +2124,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1390893586}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.35, y: -0.68, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2347,7 +2361,7 @@ CompositeCollider2D:
   m_GameObject: {fileID: 1390893586}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 44c51ed69dfddc94e980b7a09df06ea4, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -2531,6 +2545,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1390893595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390893586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94ca0437932f6dc4b90116d07bcb77a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1476500344
 GameObject:
   m_ObjectHideFlags: 0
@@ -3260,7 +3286,7 @@ CompositeCollider2D:
   m_GameObject: {fileID: 1670891683}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 38899546f0d2c884bb16f2ab8f9919cc, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -4327,6 +4353,7 @@ GameObject:
   - component: {fileID: 2058544504}
   - component: {fileID: 2058544505}
   - component: {fileID: 2058544502}
+  - component: {fileID: 2058544506}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -4440,8 +4467,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bf7818d535e9a845a0cb10ebcd76b7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isGrounded: 0
-  canInput: 1
   health: 50
   max_health: 50
   walkSpeed: 5
@@ -4452,6 +4477,8 @@ MonoBehaviour:
   player_sword_attack_power: 10
   player_throw_attack_power: 5
   dash_power: 15
+  isGrounded: 0
+  canInput: 1
 --- !u!95 &2058544504
 Animator:
   serializedVersion: 5
@@ -4481,7 +4508,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 2058544497}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ba262e394629f0444a9b94b220e6e58d, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -4498,6 +4525,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6, y: 1.35}
   m_EdgeRadius: 0
+--- !u!70 &2058544506
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058544497}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -1.22}
+  m_Size: {x: 0.5, y: 0.01}
+  m_Direction: 1
 --- !u!1 &2084218786
 GameObject:
   m_ObjectHideFlags: 0
