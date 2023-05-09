@@ -113,11 +113,33 @@ public class PlayerController : MonoBehaviour
 
         // player dead
         if (health <= 0) { Dead(); }
+    }
 
-        //float temp_offset_y = 1f;
-        //Debug.DrawRay(new Vector2(transform.position.x, transform.position.y - temp_offset_y), Vector2.down, Color.green);
-        //RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - temp_offset_y), Vector2.down, LayerMask.GetMask("Platform"));
-        //if (hit.collider != null) { Debug.Log("����"); }
+    // update animator variable like executing animation every time
+    public void Anim_Control()
+    {
+        // move animation
+        animator.SetFloat("velocity_x_abs", Mathf.Abs(rigid.velocity.x));
+
+        // while jumping animation
+        animator.SetBool("jumping", !isGrounded);
+        animator.SetFloat("velocity_y", rigid.velocity.y);
+
+        // attack animation
+        animator.SetBool("isAttacking", isAttacking);
+        animator.SetInteger("attack_count", combo_count);
+
+        // crouch animation
+        animator.SetBool("isCrouch", isCrouch);
+
+        // hit animation
+        animator.SetBool("isDamaged", isDamaged);
+
+        // throw animation
+        animator.SetBool("isThrowing", !canThrow);
+
+        // fall animation
+        animator.SetBool("canFall", canFall_animation);
     }
 
     // MouseButtonDown(0)
@@ -284,11 +306,11 @@ public class PlayerController : MonoBehaviour
             // downJump
             if (Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.Space))
             {
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.down, 2, LayerMask.GetMask("Floor"));
+                RaycastHit2D hit_down = Physics2D.Raycast(transform.position, Vector3.down, 2, LayerMask.GetMask("Floor"));
                 
-                if (hit.collider != null)   // prevent null exception
+                if (hit_down.collider != null)   // prevent null exception
                 {
-                    hit.collider.isTrigger = true;
+                    hit_down.collider.isTrigger = true;
                     isGrounded = false;
                     audioManager.PlayAudio("Jump");
                 }
@@ -326,35 +348,6 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.S) && isGrounded) { isCrouch = true; }
         else { isCrouch = false; }
-    }
-
-    // update animator variable like executing animation every time
-    public void Anim_Control()
-    {
-        // move animation
-        animator.SetFloat("velocity_x_abs", Mathf.Abs(rigid.velocity.x));
-
-        // while jumping animation
-        animator.SetBool("jumping", !isGrounded);
-        animator.SetFloat("velocity_y", rigid.velocity.y);
-
-        // attack animation
-        animator.SetBool("isAttacking", isAttacking);
-        animator.SetInteger("attack_count", combo_count);        
-
-        // crouch animation
-        animator.SetBool("isCrouch", isCrouch);
-
-        // hit animation
-        animator.SetBool("isDamaged", isDamaged);
-
-        // throw animation
-        animator.SetBool("isThrowing", !canThrow);
-
-        // fall animation
-        animator.SetBool("canFall" ,canFall_animation);
-
-        
     }
 
     // when player dead
@@ -479,5 +472,14 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(cooltime);
         obj.SetActive(true);    // finish cooltime
+    }
+
+    // landing
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "Floor")
+        {
+            Landing();
+        }
     }
 }
