@@ -311,15 +311,9 @@ public class PlayerController : MonoBehaviour
             // downJump
             if (Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.Space))
             {
-<<<<<<< HEAD
                 RaycastHit2D hit_down = Physics2D.Raycast(transform.position, Vector3.down, 2, LayerMask.GetMask("Floor"));
                 
                 if (hit_down.collider != null)   // prevent null exception
-=======
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.down, 2, LayerMask.GetMask("Floor"));
-                
-                if (hit.collider != null)   // prevent null exception
->>>>>>> 06fa9dd83821ca65cffa8eb91dce6b4d63e7710a
                 {
                     hit_down.collider.isTrigger = true;
                     isGrounded = false;
@@ -389,27 +383,23 @@ public class PlayerController : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    // Player is Landing
+    //    if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "Floor")
+    //    {
+    //        Landing();
+    //    }
+    //}
 
-<<<<<<< HEAD
-    
-=======
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        // Player is Landing
-        if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "Floor")
-        {
-            Landing();
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Floor")
-        {
-            isGrounded = false;
-            collision.isTrigger = false;
-        }
-    }
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.tag == "Floor")
+    //    {
+    //        isGrounded = false;
+    //        collision.isTrigger = false;
+    //    }
+    //}
 
     //private void OnTriggerEnter2D(Collider2D collider)
     //{      
@@ -424,7 +414,6 @@ public class PlayerController : MonoBehaviour
     //        }
     //    }
     //}
->>>>>>> 06fa9dd83821ca65cffa8eb91dce6b4d63e7710a
 
     // following method controled by other script
     public void Hit(Transform otherTransform, int hitDamage)
