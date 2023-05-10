@@ -348,7 +348,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!61 &97078204
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7776,7 +7775,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!61 &586890743
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -17089,7 +17087,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &854672594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17142,7 +17140,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &854672597
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -17485,7 +17482,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!61 &942544475
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -38242,8 +38238,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bf7818d535e9a845a0cb10ebcd76b7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isGrounded: 0
-  canInput: 1
   health: 1000
   max_health: 1000
   walkSpeed: 5
@@ -38254,6 +38248,8 @@ MonoBehaviour:
   player_sword_attack_power: 10
   player_throw_attack_power: 5
   dash_power: 15
+  isGrounded: 0
+  canInput: 1
 --- !u!61 &1752603395
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -38300,7 +38296,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!50 &1752603397
 Rigidbody2D:
   serializedVersion: 4
