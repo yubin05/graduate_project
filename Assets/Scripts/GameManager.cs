@@ -1,23 +1,24 @@
-// This is test script
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // skill cooltime control by enable/disable skill script
-    public IEnumerator OnSkillCoolTime(Object script, float cooltime)
+    private void Start()
     {
-        Debug.Log("쿨타임 시작");
+        GameObject teleport_points = GameObject.Find("Teleport_Points");
+        if (teleport_points)
+        { 
+            Transform[] allChildren = teleport_points.GetComponentsInChildren<Transform>();
 
-        while (cooltime > 1.0f)
-        {
-            cooltime -= Time.deltaTime;
-            // skill_UI.fillAmount = (1.0f / cooltime)
-            yield return new WaitForFixedUpdate();
+            foreach (Transform child in allChildren)
+            {
+                // except parent object (== self)
+                if (child.name == teleport_points.name) { continue; }
+
+                SpriteRenderer child_sprite = child.GetComponent<SpriteRenderer>();
+                child_sprite.color = new Color(1, 1, 1, 0);     // invisible
+            }
         }
-
-        Debug.Log("쿨타임 종료");
     }
 }

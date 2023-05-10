@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
     public int max_health;  // auto setting
     public float walkSpeed;
     public float jumpPower;
-    public float floorColiderSubtract;
+    //public float floorColiderSubtract;
     public float combo_delay;
     public float playerDamagedTime;
     public float max_velocity_y;
@@ -112,6 +112,11 @@ public class PlayerController : MonoBehaviour
 
         // player dead
         if (health <= 0) { Dead(); }
+
+        //float temp_offset_y = 1f;
+        //Debug.DrawRay(new Vector2(transform.position.x, transform.position.y - temp_offset_y), Vector2.down, Color.green);
+        //RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - temp_offset_y), Vector2.down, LayerMask.GetMask("Platform"));
+        //if (hit.collider != null) { Debug.Log("����"); }
     }
 
     // MouseButtonDown(0)
@@ -278,7 +283,8 @@ public class PlayerController : MonoBehaviour
             // downJump
             if (Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.Space))
             {
-                RaycastHit2D hit = Physics2D.Raycast(rigid.position, Vector3.down, 2, LayerMask.GetMask("Floor"));
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.down, 2, LayerMask.GetMask("Floor"));
+                
                 if (hit.collider != null)   // prevent null exception
                 {
                     hit.collider.isTrigger = true;
@@ -388,45 +394,51 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Floor")
         {
             isGrounded = false;
-            collision.collider.isTrigger = true;
+            collision.isTrigger = false;
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collider)
-    {      
-        // detect floor
-        if (collider.gameObject.tag == "Floor")
-        {
-            //Debug.Log(transform.position.y - collider.transform.position.y);  // parameter test
-            if (transform.position.y - collider.transform.position.y > floorColiderSubtract)
-            {
-                collider.isTrigger = false;
-                Landing();
-            }
-        }
-    }
+    //private void OnTriggerEnter2D(Collider2D collider)
+    //{      
+    //    // detect floor
+    //    if (collider.gameObject.tag == "Floor")
+    //    {
+    //        //Debug.Log(transform.position.y - collider.transform.position.y);  // parameter test
+    //        if (transform.position.y - collider.transform.position.y > floorColiderSubtract)
+    //        {
+    //            collider.isTrigger = false;
+    //            Landing();
+    //        }
+    //    }
+    //}
 
     // following method controled by other script
     public void Hit(Transform otherTransform, int hitDamage)
     {
         // Player hit by enemy
         {
-            canInput = false;    // player can't input key
-            health -= hitDamage;    // health decreased
+            Hit(hitDamage);
 
             int reDircX = (transform.position.x - otherTransform.position.x > 0) ? 1 : -1;
             int reDircY = (transform.position.y - otherTransform.position.y > 1) ? 1 : 2;
             Vector2 reActDirc = new Vector2(reDircX, reDircY).normalized;
             rigid.AddForce(reActDirc * 10, ForceMode2D.Impulse);
-
-            // player's hit effect
-            OnDamaged();
         }
+    }
+
+    // not physical reaction version
+    public void Hit(int hitDamage)
+    {
+        canInput = false;    // player can't input key
+        health -= hitDamage;    // health decreased
+
+        // player's hit effect
+        OnDamaged();
     }
 
     // player's hit effect

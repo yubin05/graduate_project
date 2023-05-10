@@ -13,6 +13,8 @@ TagManager:
   - ThrowObject
   - GameManager
   - Boss
+  - Explosion
+  - Teleport_Point
   layers:
   - Default
   - TransparentFX
@@ -28,7 +30,7 @@ TagManager:
   - Boss
   - BossDead
   - HitBox
-  - 
+  - Explosion
   - 
   - 
   - 
