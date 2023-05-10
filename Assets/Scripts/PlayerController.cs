@@ -113,6 +113,11 @@ public class PlayerController : MonoBehaviour
 
         // player dead
         if (health <= 0) { Dead(); }
+
+        //float temp_offset_y = 1f;
+        //Debug.DrawRay(new Vector2(transform.position.x, transform.position.y - temp_offset_y), Vector2.down, Color.green);
+        //RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - temp_offset_y), Vector2.down, LayerMask.GetMask("Platform"));
+        //if (hit.collider != null) { Debug.Log("����"); }
     }
 
     // update animator variable like executing animation every time
@@ -306,9 +311,15 @@ public class PlayerController : MonoBehaviour
             // downJump
             if (Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.Space))
             {
+<<<<<<< HEAD
                 RaycastHit2D hit_down = Physics2D.Raycast(transform.position, Vector3.down, 2, LayerMask.GetMask("Floor"));
                 
                 if (hit_down.collider != null)   // prevent null exception
+=======
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.down, 2, LayerMask.GetMask("Floor"));
+                
+                if (hit.collider != null)   // prevent null exception
+>>>>>>> 06fa9dd83821ca65cffa8eb91dce6b4d63e7710a
                 {
                     hit_down.collider.isTrigger = true;
                     isGrounded = false;
@@ -379,7 +390,41 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+<<<<<<< HEAD
     
+=======
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Player is Landing
+        if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "Floor")
+        {
+            Landing();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Floor")
+        {
+            isGrounded = false;
+            collision.isTrigger = false;
+        }
+    }
+
+    //private void OnTriggerEnter2D(Collider2D collider)
+    //{      
+    //    // detect floor
+    //    if (collider.gameObject.tag == "Floor")
+    //    {
+    //        //Debug.Log(transform.position.y - collider.transform.position.y);  // parameter test
+    //        if (transform.position.y - collider.transform.position.y > floorColiderSubtract)
+    //        {
+    //            collider.isTrigger = false;
+    //            Landing();
+    //        }
+    //    }
+    //}
+>>>>>>> 06fa9dd83821ca65cffa8eb91dce6b4d63e7710a
 
     // following method controled by other script
     public void Hit(Transform otherTransform, int hitDamage)
