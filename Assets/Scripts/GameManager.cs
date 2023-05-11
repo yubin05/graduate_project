@@ -1,23 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    GameObject player;  GameObject startPoint;
+    GameObject startPoint;  Transform startPoint_transform;
+
+    [SerializeField] public GameObject player_prefab;
     [SerializeField] public float respawn_cooltime;
+
+    [HideInInspector] public bool isPlayerDead = false;
 
     private void Awake()
     {
-        player = GameObject.FindWithTag("Player");
         startPoint = GameObject.FindWithTag("Respawn");
+        startPoint_transform = startPoint.transform;
     }
 
     private void Start()
     {
         GameObject teleport_points = GameObject.Find("Teleport_Points");
         if (teleport_points)
-        { 
+        {
             Transform[] allChildren = teleport_points.GetComponentsInChildren<Transform>();
 
             foreach (Transform child in allChildren)
@@ -31,11 +36,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        Respawn();
+    }
+
     // this method called by PlayerController.cs
-    public IEnumerator Respawn()
+    public void Respawn()
+    {
+        if (!isPlayerDead) { return; }
+        StartCoroutine(GameOverRetry());
+        isPlayerDead = false;
+    }
+
+    IEnumerator GameOverRetry()
     {
         yield return new WaitForSeconds(respawn_cooltime);
-        Debug.Log("Respawn Method");
-        player.SetActive(true); startPoint.SetActive(true);
+        //Instantiate(player_prefab, startPoint_transform.position, startPoint_transform.rotation);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);     // self scene reload
     }
 }

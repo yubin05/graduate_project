@@ -44,4 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed98ae7c489dfe84e8d4a01d9ba1398d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawn_cooltime: 5
+  player_prefab: {fileID: 4554834805683292184, guid: baad0e29c3a4e7c49a87c47e5ab4d104, type: 3}
+  respawn_cooltime: 3
+  isPlayerDead: 0
