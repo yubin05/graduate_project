@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    GameObject gameManager;
+
     Rigidbody2D rigid;
     SpriteRenderer render;
     Animator animator;
@@ -57,6 +59,8 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
+        gameManager = GameObject.FindWithTag("GameManager");
+
         // set player health and max_health
         health = 50;
         max_health = health;
@@ -380,6 +384,7 @@ public class PlayerController : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Death") &&
             animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f)
         {
+            StartCoroutine(gameManager.GetComponent<GameManager>().Respawn());
             gameObject.SetActive(false);
         }
     }

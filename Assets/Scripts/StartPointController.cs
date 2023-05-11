@@ -11,6 +11,6 @@ public class StartPointController : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
         player.transform.position = gameObject.transform.position;
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }
