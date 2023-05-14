@@ -22,6 +22,7 @@ public class CrackWall : MonoBehaviour
     {
         if (collider.gameObject.tag == "ThrowObject")
         {
+            gameObject.GetComponent<TilemapCollider2D>().enabled = false;
             tilemap.color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
             audioSource.Play();
             StartCoroutine(Destroying());
