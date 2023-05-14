@@ -140,7 +140,7 @@ public class Enemy : MonoBehaviour
 
     public virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform.tag == "Wall")
+        if (collision.transform.tag == "Wall" || collision.transform.tag == "Floor")
             // when enemy contact wall or door
         {
             render.flipX = !render.flipX;   // turn
