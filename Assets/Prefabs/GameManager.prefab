@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3469043723672863311}
   - component: {fileID: 3469043723672863308}
+  - component: {fileID: 5451753992855260337}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -47,3 +48,17 @@ MonoBehaviour:
   player_prefab: {fileID: 4554834805683292184, guid: baad0e29c3a4e7c49a87c47e5ab4d104, type: 3}
   respawn_cooltime: 3
   isPlayerDead: 0
+--- !u!114 &5451753992855260337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3469043723672863310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f215cd27d7705841adfca35a1fdccf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 0}
+  MasterSlider: {fileID: 0}

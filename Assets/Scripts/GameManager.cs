@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         startPoint = GameObject.FindWithTag("Respawn");
-        startPoint_transform = startPoint.transform;
+        if (startPoint != null) { startPoint_transform = startPoint.transform; }
     }
 
     private void Start()

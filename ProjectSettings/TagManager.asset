@@ -15,6 +15,7 @@ TagManager:
   - Boss
   - Explosion
   - Teleport_Point
+  - VolumeSlider
   layers:
   - Default
   - TransparentFX
