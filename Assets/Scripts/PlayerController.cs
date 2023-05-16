@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    GameObject gameManager;
+
     Rigidbody2D rigid;
     SpriteRenderer render;
     Animator animator;
@@ -57,6 +59,8 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
+        gameManager = GameObject.FindWithTag("GameManager");
+
         // set player health and max_health
         health = 50;
         max_health = health;
@@ -380,40 +384,11 @@ public class PlayerController : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Death") &&
             animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f)
         {
+            //StartCoroutine(gameManager.GetComponent<GameManager>().Respawn());
+            gameManager.GetComponent<GameManager>().isPlayerDead = true;
             gameObject.SetActive(false);
         }
     }
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    // Player is Landing
-    //    if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "Floor")
-    //    {
-    //        Landing();
-    //    }
-    //}
-
-    //private void OnTriggerExit2D(Collider2D collision)
-    //{
-    //    if (collision.gameObject.tag == "Floor")
-    //    {
-    //        isGrounded = false;
-    //        collision.isTrigger = false;
-    //    }
-    //}
-
-    //private void OnTriggerEnter2D(Collider2D collider)
-    //{      
-    //    // detect floor
-    //    if (collider.gameObject.tag == "Floor")
-    //    {
-    //        //Debug.Log(transform.position.y - collider.transform.position.y);  // parameter test
-    //        if (transform.position.y - collider.transform.position.y > floorColiderSubtract)
-    //        {
-    //            collider.isTrigger = false;
-    //            Landing();
-    //        }
-    //    }
-    //}
 
     // following method controled by other script
     public void Hit(Transform otherTransform, int hitDamage)

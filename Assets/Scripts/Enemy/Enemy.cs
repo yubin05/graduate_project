@@ -29,6 +29,8 @@ public class Enemy : MonoBehaviour
     [HideInInspector]
     public Animator animator;
 
+    private float enemy_size;
+
     protected virtual void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -43,6 +45,9 @@ public class Enemy : MonoBehaviour
         if (isRightDefaultValue) { render.flipX = false; }
         else { render.flipX = true; }
         max_health = health;
+
+        // hole detected raycast distance variable
+        enemy_size = (transform.localScale.x + transform.localScale.y) / 2;
 
         // get each enemy's audioManager in subclass's Start method
     }
@@ -85,8 +90,8 @@ public class Enemy : MonoBehaviour
 
         // if hole exist front, enemy turn
         RaycastHit2D hit = Physics2D.Raycast(new Vector2(rigid.position.x + (moveDirection/2.0f), rigid.position.y),
-                                                Vector3.down, 1f, LayerMask.GetMask("Floor", "Platform"));
-        Debug.DrawRay(new Vector2(rigid.position.x + (moveDirection / 2.0f), rigid.position.y), Vector3.down, Color.green);   // raycast test
+                                                Vector3.down, enemy_size, LayerMask.GetMask("Floor", "Platform"));
+        Debug.DrawRay(new Vector2(rigid.position.x + (moveDirection / 2.0f), rigid.position.y), Vector3.down * enemy_size, Color.green);   // raycast test
         if (hit.collider == null)
         {
             render.flipX = !render.flipX;   // turn
@@ -135,7 +140,7 @@ public class Enemy : MonoBehaviour
 
     public virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform.tag == "Wall")
+        if (collision.transform.tag == "Wall" || collision.transform.tag == "Floor")
             // when enemy contact wall or door
         {
             render.flipX = !render.flipX;   // turn
