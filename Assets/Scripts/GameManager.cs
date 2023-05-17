@@ -5,36 +5,36 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    GameObject startPoint;  Transform startPoint_transform;
+    //GameObject startPoint;  //Transform startPoint_transform;
 
     [SerializeField] public GameObject player_prefab;
     [SerializeField] public float respawn_cooltime;
 
     [HideInInspector] public bool isPlayerDead = false;
 
-    private void Awake()
-    {
-        startPoint = GameObject.FindWithTag("Respawn");
-        if (startPoint != null) { startPoint_transform = startPoint.transform; }
-    }
+    //private void Awake()
+    //{
+    //    startPoint = GameObject.FindWithTag("Respawn");
+    //    if (startPoint != null) { startPoint_transform = startPoint.transform; }
+    //}
 
-    private void Start()
-    {
-        GameObject teleport_points = GameObject.Find("Teleport_Points");
-        if (teleport_points)
-        {
-            Transform[] allChildren = teleport_points.GetComponentsInChildren<Transform>();
+    //private void Start()
+    //{
+    //    GameObject teleport_points = GameObject.Find("Teleport_Points");
+    //    if (teleport_points)
+    //    {
+    //        GameObject[] allChildren = teleport_points.GetComponentsInChildren<GameObject>();
 
-            foreach (Transform child in allChildren)
-            {
-                // except parent object (== self)
-                if (child.name == teleport_points.name) { continue; }
+    //        foreach (GameObject child in allChildren)
+    //        {
+    //            // except parent object (== self)
+    //            if (child.name == teleport_points.name) { continue; }
 
-                SpriteRenderer child_sprite = child.GetComponent<SpriteRenderer>();
-                child_sprite.color = new Color(1, 1, 1, 0);     // invisible
-            }
-        }
-    }
+    //            SpriteRenderer child_sprite = child.GetComponent<SpriteRenderer>();
+    //            child_sprite.color = new Color(1, 1, 1, 0);     // invisible
+    //        }
+    //    }
+    //}
 
     private void Update()
     {

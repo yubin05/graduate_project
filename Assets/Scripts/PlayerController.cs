@@ -225,7 +225,7 @@ public class PlayerController : MonoBehaviour
         {
             canFall_animation = false;
             animator.SetTrigger("throw_trigger");
-            throwObject.GetComponent<ThrowObjectController>().InstantiateClone();
+            throwObject.GetComponent<ThrowObjectController>().InstantiateClone(render.flipX);
 
             // throw delay
             canThrow = false;

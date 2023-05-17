@@ -867,6 +867,7 @@ MonoBehaviour:
   audioDeath: {fileID: 8300000, guid: fc24e7c649dad25438ae530da0b6935a, type: 3}
   audioHurt: {fileID: 8300000, guid: 34eee2bd5f224f34fa0be90eef65c3bc, type: 3}
   audioDash: {fileID: 8300000, guid: c5a52a6a0df423f448bb1bb4147df518, type: 3}
+  audioThrow: {fileID: 8300000, guid: a7bd0c48e649b5d49849c266b477b154, type: 3}
 --- !u!1 &4554834807441134842
 GameObject:
   m_ObjectHideFlags: 0

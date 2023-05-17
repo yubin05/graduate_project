@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class AudioManager_Player : AudioManager
 {
-    public AudioClip audioWalk;
-    public AudioClip audioRun;
-    public AudioClip audioJump;
-    public AudioClip audioLanding;
-    public AudioClip audioAttack;
-    public AudioClip audioDeath;
-    public AudioClip audioHurt;
-    public AudioClip audioDash;
+    [SerializeField] public AudioClip audioWalk;
+    [SerializeField] public AudioClip audioRun;
+    [SerializeField] public AudioClip audioJump;
+    [SerializeField] public AudioClip audioLanding;
+    [SerializeField] public AudioClip audioAttack;
+    [SerializeField] public AudioClip audioDeath;
+    [SerializeField] public AudioClip audioHurt;
+    [SerializeField] public AudioClip audioDash;
+    [SerializeField] public AudioClip audioThrow;
 
     protected override AudioClip checkAudioName(string audioName)
     {
@@ -24,6 +25,7 @@ public class AudioManager_Player : AudioManager
         else if (audioName == "Death") { audioClip = audioDeath; }
         else if (audioName == "Hurt") { audioClip = audioHurt; }
         else if (audioName == "Dash") { audioClip = audioDash; }
+        else if (audioName == "Throw") { audioClip = audioThrow; }
         else
         {
             audioClip = null;

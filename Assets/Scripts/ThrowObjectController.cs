@@ -5,12 +5,30 @@ using UnityEngine;
 public class ThrowObjectController : MonoBehaviour
 {
     public GameObject targetGameObject;
+
+    // Audio Manager
+    GameObject audio_;
+    AudioManager audioManager;
+
+    // this variable controled by other scripts
     public float moveSpeed;
     public float throw_delay;
 
-    public void InstantiateClone()
+    private void Start()
+    {
+        // get audio manager
+        audio_ = GameObject.Find("AudioManager_Player");
+        audioManager = audio_.GetComponent<AudioManager_Player>();
+    }
+
+    // this method called by PlayerController.cs
+    public void InstantiateClone(bool flipX)
     {
         // Instantiate
-        Instantiate(targetGameObject, transform.position, transform.rotation);
+        GameObject newObject = Instantiate(targetGameObject, transform.position, transform.rotation) as GameObject;
+        if (flipX) { newObject.transform.localScale *= -1; }
+
+        // sound play
+        audioManager.PlayOneShotAudio("Throw");
     }
 }
