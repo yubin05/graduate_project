@@ -14,11 +14,17 @@ public class ThrowObjectController : MonoBehaviour
     public float moveSpeed;
     public float throw_delay;
 
+    // UI Controller
+    UICoolTimeController coolTimeController;
+
     private void Start()
     {
         // get audio manager
         audio_ = GameObject.Find("AudioManager_Player");
         audioManager = audio_.GetComponent<AudioManager_Player>();
+
+        coolTimeController = GameObject.FindWithTag("PlayerUI").transform.Find("UICoolTime_Throw").transform.Find("foreground_image").
+            GetComponent<UICoolTimeController>();
     }
 
     // this method called by PlayerController.cs
@@ -27,6 +33,9 @@ public class ThrowObjectController : MonoBehaviour
         // Instantiate
         GameObject newObject = Instantiate(targetGameObject, transform.position, transform.rotation) as GameObject;
         if (flipX) { newObject.transform.localScale *= -1; }
+
+        // cooltime UI control
+        StartCoroutine(coolTimeController.OnCoolTime(throw_delay));
 
         // sound play
         audioManager.PlayOneShotAudio("Throw");

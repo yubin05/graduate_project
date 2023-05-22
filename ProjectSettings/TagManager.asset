@@ -16,6 +16,7 @@ TagManager:
   - Explosion
   - Teleport_Point
   - VolumeSlider
+  - PlayerUI
   layers:
   - Default
   - TransparentFX
