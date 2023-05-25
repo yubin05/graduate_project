@@ -42,6 +42,9 @@ public class Boss_Bandit : Boss
 
         hitbox_bandit_down = GetComponentInChildren<HitBoxControllor_Bandit_DownAttack>().gameObject;
         hitbox_bandit_down.SetActive(false);
+
+        // deacive self
+        gameObject.SetActive(false);    // onactive when entry bossroom by EntryBossRoom.cs
     }
 
     // Update is called once per frame

@@ -6,51 +6,39 @@ public class EntryBossRoom : MonoBehaviour
 {
     GameObject player;
     GameObject boss;
+    GameObject entryBossRoomDoor;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         player = GameObject.FindWithTag("Player");
         boss = GameObject.FindWithTag("Boss");
+        entryBossRoomDoor = GameObject.FindWithTag("EntryBossRoomDoor");
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject.tag == "Player")
         {
-            Debug.Log("success");
-
             // player stop wait a minute
             player.GetComponent<PlayerController>().canInput = false;
+            StartCoroutine(CanMovePlayer());
 
             // close door in boss room
-            //code
+            entryBossRoomDoor.SetActive(true);
 
             // boss entry
             boss.SetActive(true);
-
-            // player can move
-            player.GetComponent<PlayerController>().canInput = true;
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    IEnumerator CanMovePlayer()
     {
-        if (collision.gameObject.tag == "Player")
-        {
-            Debug.Log("success");
+        yield return new WaitForSeconds(1f);
 
-            // player stop wait a minute
-            player.GetComponent<PlayerController>().canInput = false;
+        // player can move
+        player.GetComponent<PlayerController>().canInput = true;
 
-            // close door in boss room
-            //code
-
-            // boss entry
-            boss.SetActive(true);
-
-            // player can move
-            player.GetComponent<PlayerController>().canInput = true;
-        }
+        // prevent iteration
+        Destroy(gameObject);
     }
 }
