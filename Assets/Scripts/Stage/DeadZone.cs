@@ -10,5 +10,11 @@ public class DeadZone : MonoBehaviour
         {
             collider.gameObject.GetComponent<PlayerController>().Dead();
         }
+
+        // destroy falling floor when contact deadzone
+        if (collider.gameObject.layer == 15)
+        {
+            Destroy(collider.gameObject);
+        }
     }
 }

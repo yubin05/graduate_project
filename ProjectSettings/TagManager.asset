@@ -35,8 +35,8 @@ TagManager:
   - BossDead
   - HitBox
   - Explosion
-  - 
-  - 
+  - FallingFloor
+  - DeadZone
   - 
   - 
   - 
