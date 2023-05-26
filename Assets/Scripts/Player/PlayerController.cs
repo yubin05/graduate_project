@@ -384,8 +384,7 @@ public class PlayerController : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Death") &&
             animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f)
         {
-            //StartCoroutine(gameManager.GetComponent<GameManager>().Respawn());
-            gameManager.GetComponent<GameManager>().isPlayerDead = true;
+            gameManager.GetComponent<GameManager>().Respawn();
             gameObject.SetActive(false);
         }
     }

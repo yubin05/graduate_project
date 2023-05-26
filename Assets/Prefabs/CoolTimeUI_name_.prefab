@@ -86,7 +86,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6562301693359773214}
   m_Layer: 5
-  m_Name: UICoolTime_name_
+  m_Name: CoolTimeUI_name_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

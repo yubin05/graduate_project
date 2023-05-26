@@ -64,43 +64,7 @@ public class Boss_Bandit : Boss
             render.flipX = true;
         }
 
-        int temp = Random.Range(1, 10001);   // all attack trigger percentage
-
-        // when boss close player, trigger attacked
-        if (distanceAbsXDifferenceOfPlayer <= 2f)
-        {
-            if (!attack_triggered)
-            {
-                SetOnTriggers();
-                Attack();
-            }
-        }
-        // when player out hitbox range, set off attacking
-        else if (distanceAbsXDifferenceOfPlayer > 2f)
-        {
-            isStaggered_velocity = false;
-            attacking_animation = false;
-            SetOffTriggers();
-
-            // bandit sometimes trigger dash_attack
-            if (distanceAbsXDifferenceOfPlayer > 8f)
-            {
-                if (!dash_attack_triggered && (temp) <= (dash_attack_percentage))
-                {
-                    SetOnTriggers();
-                    Dash_Attack();
-                }
-            }
-            // bandit sometimes trigger jump_attack
-            else if (distanceAbsXDifferenceOfPlayer > 4f)
-            {
-                if (!jump_attack_triggered && (temp) <= (jump_attack_percentage))
-                {
-                    SetOnTriggers();
-                    Jump();
-                }
-            }
-        }
+        if (!isDead) { AttackPattern(); }
     }
 
     protected override void Anim_Control()
@@ -150,6 +114,47 @@ public class Boss_Bandit : Boss
                 walk_sound_triggered = true;
                 audioManager.PlayAudio("Walk", 1f, 1f);
                 StartCoroutine(WalkSoundOff());
+            }
+        }
+    }
+
+    private void AttackPattern()
+    {
+        int temp = Random.Range(1, 10001);   // all attack trigger percentage
+
+        // when boss close player, trigger attacked
+        if (distanceAbsXDifferenceOfPlayer <= 2f)
+        {
+            if (!attack_triggered)
+            {
+                SetOnTriggers();
+                Attack();
+            }
+        }
+        // when player out hitbox range, set off attacking
+        else if (distanceAbsXDifferenceOfPlayer > 2f)
+        {
+            isStaggered_velocity = false;
+            attacking_animation = false;
+            SetOffTriggers();
+
+            // bandit sometimes trigger dash_attack
+            if (distanceAbsXDifferenceOfPlayer > 8f)
+            {
+                if (!dash_attack_triggered && (temp) <= (dash_attack_percentage))
+                {
+                    SetOnTriggers();
+                    Dash_Attack();
+                }
+            }
+            // bandit sometimes trigger jump_attack
+            else if (distanceAbsXDifferenceOfPlayer > 4f)
+            {
+                if (!jump_attack_triggered && (temp) <= (jump_attack_percentage))
+                {
+                    SetOnTriggers();
+                    Jump();
+                }
             }
         }
     }

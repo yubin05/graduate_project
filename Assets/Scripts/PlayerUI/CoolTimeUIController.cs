@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UICoolTimeController : MonoBehaviour
+public class CoolTimeUIController : MonoBehaviour
 {
     Image cooltimeImage;
 
