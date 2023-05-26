@@ -156,6 +156,8 @@ public class Boss : MonoBehaviour
     // you can use this Dead() method directly by others
     public virtual void Dead()
     {
+        isDead = true;
+
         animator.SetTrigger("OnDead");
 
         gameObject.layer = 12;   // Boss Dead
