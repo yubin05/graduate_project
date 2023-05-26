@@ -15,7 +15,7 @@ public class ThrowObjectController : MonoBehaviour
     public float throw_delay;
 
     // UI Controller
-    UICoolTimeController coolTimeController;
+    CoolTimeUIController coolTimeController;
 
     private void Start()
     {
@@ -23,8 +23,8 @@ public class ThrowObjectController : MonoBehaviour
         audio_ = GameObject.Find("AudioManager_Player");
         audioManager = audio_.GetComponent<AudioManager_Player>();
 
-        coolTimeController = GameObject.FindWithTag("PlayerUI").transform.Find("UICoolTime_Throw").transform.Find("foreground_image").
-            GetComponent<UICoolTimeController>();
+        coolTimeController = GameObject.FindWithTag("PlayerUI").transform.Find("CoolTimeUI_Throw").transform.Find("foreground_image").
+            GetComponent<CoolTimeUIController>();
     }
 
     // this method called by PlayerController.cs

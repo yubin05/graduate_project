@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
+    GameManager gameManager;
+
     protected Rigidbody2D rigid;
     protected SpriteRenderer render;
     protected Animator animator;
@@ -38,8 +40,13 @@ public class Boss : MonoBehaviour
     protected bool isStaggered_velocity = false;    // boss velocity stop
     protected bool isStaggered_position = false;    // boss position constraints all stop
 
+    // this boss whether die or not listen other script
+    [HideInInspector] public bool isDead = false;
+
     protected virtual void Awake()
     {
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+
         rigid = GetComponent<Rigidbody2D>();
         render = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
@@ -171,6 +178,7 @@ public class Boss : MonoBehaviour
     protected virtual IEnumerator DestroyBoss()
     {
         yield return new WaitForSeconds(2f);
+        gameManager.ActiveStageClearPanel();
         Destroy(gameObject);
     }
 

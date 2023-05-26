@@ -18,6 +18,7 @@ TagManager:
   - VolumeSlider
   - PlayerUI
   - EntryBossRoomDoor
+  - StageClearPanel
   layers:
   - Default
   - TransparentFX
