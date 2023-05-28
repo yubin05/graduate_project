@@ -3335,7 +3335,7 @@ GameObject:
   - component: {fileID: 441534629}
   m_Layer: 0
   m_Name: item
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31727,7 +31727,7 @@ GameObject:
   - component: {fileID: 786489735}
   m_Layer: 0
   m_Name: CrackWall (4)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34142,7 +34142,7 @@ GameObject:
   - component: {fileID: 923934238}
   m_Layer: 0
   m_Name: CrackWalls
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38510,7 +38510,7 @@ GameObject:
   - component: {fileID: 1333564531}
   m_Layer: 0
   m_Name: CrackWall (1)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40166,7 +40166,7 @@ GameObject:
   - component: {fileID: 1452611855}
   m_Layer: 0
   m_Name: CrackWall (2)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49092,7 +49092,7 @@ GameObject:
   - component: {fileID: 1723447508}
   m_Layer: 0
   m_Name: CrackWall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49411,7 +49411,7 @@ GameObject:
   - component: {fileID: 1736822719}
   m_Layer: 0
   m_Name: CrackWall (6)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50994,7 +50994,7 @@ GameObject:
   - component: {fileID: 1817319632}
   m_Layer: 0
   m_Name: CrackWall (3)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54623,7 +54623,7 @@ GameObject:
   - component: {fileID: 2042376583}
   m_Layer: 0
   m_Name: CrackWall (5)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55457,7 +55457,7 @@ GameObject:
   - component: {fileID: 2117277507}
   m_Layer: 0
   m_Name: CrackWall (7)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
