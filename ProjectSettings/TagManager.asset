@@ -19,6 +19,7 @@ TagManager:
   - PlayerUI
   - EntryBossRoomDoor
   - StageClearPanel
+  - StageManager
   layers:
   - Default
   - TransparentFX

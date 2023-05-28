@@ -7,14 +7,6 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] public float respawn_cooltime;
 
-    GameObject player;
-    GameObject stageClearPanel;
-    private void Awake()
-    {
-        player = GameObject.FindWithTag("Player");
-        stageClearPanel = GameObject.FindWithTag("StageClearPanel");
-    }
-
     // this method called by PlayerController.cs
     public void Respawn()
     {
@@ -28,9 +20,8 @@ public class GameManager : MonoBehaviour
     }
 
     // this method called by Boss.cs
-    public void ActiveStageClearPanel()
+    public void ActiveStageClearPanelController(GameObject stageManager)
     {
-        stageClearPanel.SetActive(true);
-        player.SetActive(false);
+        stageManager.GetComponent<StageManager>().ActiveStageClearPanel();
     }
 }

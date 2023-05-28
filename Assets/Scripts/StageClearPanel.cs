@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StageClearPanel : MonoBehaviour
 {
@@ -8,5 +9,10 @@ public class StageClearPanel : MonoBehaviour
     void Start()
     {
         gameObject.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (Input.anyKeyDown) { SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); }
     }
 }

@@ -180,7 +180,7 @@ public class Boss : MonoBehaviour
     protected virtual IEnumerator DestroyBoss()
     {
         yield return new WaitForSeconds(2f);
-        gameManager.ActiveStageClearPanel();
+        gameManager.ActiveStageClearPanelController(GameObject.FindWithTag("StageManager"));
         Destroy(gameObject);
     }
 
