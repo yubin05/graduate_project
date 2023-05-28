@@ -10,6 +10,6 @@ public class Wizard_FireBall_Controller : MonoBehaviour
     // called by Wizard.cs
     public void Instantiate_Fireball()
     {
-        Instantiate(fireball, new Vector2(transform.position.x, transform.position.y + 0.8f), transform.rotation);
+        Instantiate(fireball, new Vector2(transform.position.x, transform.position.y + 0.8f), transform.rotation, transform);
     }
 }

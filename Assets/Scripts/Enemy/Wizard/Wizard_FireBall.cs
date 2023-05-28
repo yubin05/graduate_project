@@ -24,7 +24,7 @@ public class Wizard_FireBall : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         target_transform = player.transform;
 
-        wizard_script = GameObject.Find("Wizard").GetComponent<Wizard>();
+        wizard_script = transform.parent.parent.parent.parent.parent.parent.gameObject.GetComponent<Wizard>();
 
         moveSpeed = wizard_script.fireball_speed;
 

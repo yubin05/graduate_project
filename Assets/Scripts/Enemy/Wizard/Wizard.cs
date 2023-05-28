@@ -32,7 +32,7 @@ public class Wizard : Enemy
         // Wizard's each body's part get
         renders = transform.Find("body").GetComponentsInChildren<SpriteRenderer>();
 
-        wizard_fireBall_controller = GameObject.Find("Wizard_FireBall_Controller").GetComponent<Wizard_FireBall_Controller>();
+        wizard_fireBall_controller = gameObject.GetComponentInChildren<Wizard_FireBall_Controller>();
 
         Instantiate(inital_teleport_point, new Vector2(transform.position.x, transform.position.y + 0.25f), transform.rotation,
             transform.parent.Find("Teleport_Points"));
