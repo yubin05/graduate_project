@@ -5,23 +5,77 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] public float respawn_cooltime;
+    GameObject player;
+    PlayerController player_script;
+    int player_inital_sword_attack_power;
+    int player_inital_throw_attack_power;
+    int player_inital_health;
+    int player_inital_max_health;
 
-    // this method called by PlayerController.cs
-    public void Respawn()
+    GameObject playerUI;
+    GameObject gameOverUI;
+
+    private void Awake()
     {
-        StartCoroutine(GameOverRetry());
+        playerUI = GameObject.FindWithTag("PlayerUI");
+        gameOverUI = GameObject.FindWithTag("GameOverUI");
     }
 
-    IEnumerator GameOverRetry()
+    private void Start()
     {
-        yield return new WaitForSeconds(respawn_cooltime);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);     // self scene reload
+        player = GameObject.FindWithTag("Player");
+        player_script = player.GetComponent<PlayerController>();
+        
+        // player stat initalization for restarting
+        player_inital_sword_attack_power = player_script.player_sword_attack_power;
+        player_inital_throw_attack_power = player_script.player_throw_attack_power;
+        player_inital_health = player_script.health;
+        player_inital_max_health = player_script.max_health;
+
+        player.SetActive(false);
+    }
+
+    // this method called by PlayerController.cs
+    public void GameOver()
+    {
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);     // self scene reload
+        ActiveGameOverPanel();
+        player.SetActive(false);
+    }
+
+    void ActiveGameOverPanel()
+    {
+        gameOverUI.SetActive(true);
     }
 
     // this method called by Boss.cs
     public void ActiveStageClearPanelController(GameObject stageManager)
     {
         stageManager.GetComponent<StageManager>().ActiveStageClearPanel();
+    }
+
+    // this method called by GameOver.cs
+    public void RevivePlayer()
+    {
+        player.SetActive(true);
+
+        player_script.player_sword_attack_power = player_inital_sword_attack_power;
+        player_script.player_throw_attack_power = player_inital_throw_attack_power;
+        player_script.health = player_inital_health;
+        player_script.max_health = player_inital_max_health;
+
+        player_script.canInput = true;
+        player.GetComponentInChildren<PlayerHealthUI>().setHealthUI(player_inital_health);
+        player.GetComponentInChildren<PlayerHealthUI>().setMaxHealthUI(player_inital_max_health);
+        player_script.Vincible();
+    }
+
+    // this method called by other scripts in need of loading main menu scene
+    // because prevent overlap DontDestroyOnLoad object
+    public void LoadMainMenuScene()
+    {
+        Destroy(gameOverUI); Destroy(playerUI);
+        SceneManager.LoadScene(0);
+        Destroy(player); Destroy(gameObject);
     }
 }

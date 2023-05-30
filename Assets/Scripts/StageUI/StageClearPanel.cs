@@ -5,14 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class StageClearPanel : MonoBehaviour
 {
+    protected GameObject player;
+
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
+        player = GameObject.FindWithTag("Player");
         gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        if (Input.anyKeyDown) { SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); }
+        if (Input.anyKeyDown)
+        {
+            player.SetActive(true);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
 }

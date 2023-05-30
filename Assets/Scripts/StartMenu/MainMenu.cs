@@ -7,19 +7,35 @@ public class MainMenu : MonoBehaviour
 {
     [SerializeField] public GameObject gameManager;
 
+    private GameObject player;
     private GameObject playerUI;
+    private GameObject gameOverUI;
+
+    private void Awake()
+    {
+        player = GameObject.FindWithTag("Player");
+        playerUI = GameObject.FindWithTag("PlayerUI");
+    }
 
     private void Start()
     {
-        playerUI = GameObject.FindWithTag("PlayerUI");
+        gameOverUI = GameObject.FindWithTag("GameOverUI");
+        gameOverUI.SetActive(false);
     }
 
     public void PlayGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         
+        player.SetActive(true);
+        DontDestroyOnLoads();
+    }
+    void DontDestroyOnLoads()
+    {
         DontDestroyOnLoad(playerUI);
         DontDestroyOnLoad(gameManager);
+        DontDestroyOnLoad(player);
+        DontDestroyOnLoad(gameOverUI);
     }
 
     public void QuitGame()

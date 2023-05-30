@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    GameObject gameManager;
+    GameManager gameManager;
 
     Rigidbody2D rigid;
     SpriteRenderer render;
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
-        gameManager = GameObject.FindWithTag("GameManager");
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
 
         // set player health and max_health
         health = 50;
@@ -384,8 +384,8 @@ public class PlayerController : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Death") &&
             animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f)
         {
-            gameManager.GetComponent<GameManager>().Respawn();
-            gameObject.SetActive(false);
+            playedDeadSound = false;
+            gameManager.GameOver();
         }
     }
 
