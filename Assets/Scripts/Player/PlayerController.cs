@@ -470,18 +470,6 @@ public class PlayerController : MonoBehaviour
         render.color = new Color(1, 1, 1, 1);
     }
 
-    // skill cooltime control by enable/disable skill script
-    public void OnSkillCoolTime(GameObject obj, float cooltime)
-    {
-        obj.SetActive(false);   // being cooltime
-        StartCoroutine(OffSkillCoolTime(obj, cooltime));
-    }
-    private IEnumerator OffSkillCoolTime(GameObject obj, float cooltime)
-    {
-        yield return new WaitForSeconds(cooltime);
-        obj.SetActive(true);    // finish cooltime
-    }
-
     // landing
     private void OnCollisionEnter2D(Collision2D collision)
     {

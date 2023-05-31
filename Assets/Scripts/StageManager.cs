@@ -7,11 +7,26 @@ public class StageManager : MonoBehaviour
     GameObject stageClearPanel;
     GameObject player;
 
+    GameObject playerUI;
+    [SerializeField] public bool playerCanDash;     // determine whether player can dash or not
+
     void Awake()
     {
         stageClearPanel = GameObject.FindWithTag("StageClearPanel");
         //stageClearPanel.SetActive(false);     // this method execute by stageClearPanel script
         player = GameObject.FindWithTag("Player");
+
+        playerUI = GameObject.FindWithTag("PlayerUI");
+        if (playerCanDash) 
+        { 
+            player.transform.Find("Skill_Dash").gameObject.SetActive(true);
+            playerUI.transform.Find("CoolTimeUI_Dash").gameObject.SetActive(true);
+        }
+        else 
+        { 
+            player.transform.Find("Skill_Dash").gameObject.SetActive(false);
+            playerUI.transform.Find("CoolTimeUI_Dash").gameObject.SetActive(false);
+        }
     }
 
     // this method called by Boss.cs

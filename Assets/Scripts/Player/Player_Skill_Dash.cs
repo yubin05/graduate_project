@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player_Skill_Dash : MonoBehaviour
 {
     // GameManager
-    GameManager gm;
+    //GameManager gm;
 
     // Player
     GameObject player;
@@ -19,9 +19,12 @@ public class Player_Skill_Dash : MonoBehaviour
     SpriteRenderer render;
     Animator animator;
 
-    private bool dashing = false;   // animation control value
+    private bool dashing = false;   // dash skill control
+    private bool dashing_animation = false;   // animation control value
 
     public float dash_cooltime;
+    // UI Controller
+    CoolTimeUIController coolTimeController;
 
     // Start is called before the first frame update
     void Start()
@@ -42,13 +45,16 @@ public class Player_Skill_Dash : MonoBehaviour
         render = player.GetComponent<SpriteRenderer>();
         // get animator
         animator = player.GetComponent<Animator>();
+
+        coolTimeController = GameObject.FindWithTag("PlayerUI").transform.Find("CoolTimeUI_Dash").transform.Find("foreground_image").
+            GetComponent<CoolTimeUIController>();
     }
 
     // Update is called once per frame
     void Update()
     {
         // dash animation
-        animator.SetBool("Dashing", dashing);
+        animator.SetBool("Dashing", dashing_animation);
 
         if (!dashing) { Dash(); }
     }
@@ -58,6 +64,10 @@ public class Player_Skill_Dash : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q) && player.layer != 7)
         {
             dashing = true;
+            // Skill UI trigger
+            StartCoroutine(coolTimeController.OnCoolTime(dash_cooltime));
+
+            dashing_animation = true;
             animator.SetTrigger("Dash_trigger");
 
             player_script.canInput = false;
@@ -84,8 +94,9 @@ public class Player_Skill_Dash : MonoBehaviour
 
     private IEnumerator OffDash()
     {
-        yield return new WaitForSeconds(0.5f);
-        dashing = false; animator.Play("Idle", -1);
+        float offDashTime = 0.5f;
+        yield return new WaitForSeconds(offDashTime);
+        dashing_animation = false; animator.Play("Idle", -1);
 
         rigid.velocity = new Vector2(0, 0); // initialize velocity
         rigid.constraints = RigidbodyConstraints2D.FreezeRotation;  // set off freeze position Y
@@ -93,6 +104,11 @@ public class Player_Skill_Dash : MonoBehaviour
         player_script.canInput = true;
         player_script.Vincible();
 
-        player_script.OnSkillCoolTime(gameObject, dash_cooltime);
+        StartCoroutine(OffSkillCoolTime(dash_cooltime-offDashTime));
+    }
+    private IEnumerator OffSkillCoolTime(float remain_cooltime)
+    {
+        yield return new WaitForSeconds(remain_cooltime);
+        dashing = false;
     }
 }
