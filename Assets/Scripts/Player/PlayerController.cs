@@ -62,8 +62,8 @@ public class PlayerController : MonoBehaviour
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
 
         // set player health and max_health
-        health = 50;
-        max_health = health;
+        //health = 50;
+        //max_health = health;
 
         rigid = GetComponent<Rigidbody2D>();
         render = GetComponent<SpriteRenderer>();
