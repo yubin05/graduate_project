@@ -48,7 +48,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 105
+  controlID: 26
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -223,7 +223,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 106
+  controlID: 27
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 107
+  controlID: 28
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -317,22 +317,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/imports/spritefont_and_other/pics
+    - Assets/Scenes
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/imports/spritefont_and_other/pics
+  - Assets/Scenes
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\LJY\Desktop\Codes\4grade\Graduation\graduate_project
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 515}
-    m_SelectedIDs: 56aa0000
-    m_LastClickedID: 43606
-    m_ExpandedIDs: 00000000ce680000d0680000d2680000d4680000f668000008690000f89e000004ae000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 123}
+    m_SelectedIDs: 48690000
+    m_LastClickedID: 26952
+    m_ExpandedIDs: 00000000e0680000e4680000e6680000e8680000ea680000ec680000ee6800001e690000266900002c690000386900006cd800006ed800001ad9000098f80000f405010000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -360,7 +360,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000ce680000d0680000d2680000d4680000
+    m_ExpandedIDs: 00000000e0680000e2680000e4680000e6680000e8680000ea680000ec680000ee680000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -388,7 +388,7 @@ MonoBehaviour:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: c62300006a670000
+    m_ExpandedInstanceIDs: c62300006a67000010670000fed700005ad8000012d90000ac84010018d80000e0830000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -487,10 +487,10 @@ MonoBehaviour:
     m_SaveData: []
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 220}
-      m_SelectedIDs: a6e0feff
-      m_LastClickedID: -73562
-      m_ExpandedIDs: f2c9feff7acdfefffcd2feffb2d3feff6edcfeffa6e0feff2ce8feffcaf2feff7af9feffec03ffff9c0affff1615ffffb220ffff482bffffc431ffff9e44ffff8c50ffff2863ffff2c6effff5c76ffff387bffff6080ffff6a80ffffd081ffff6287ffff6c87ffffca88ffffb693ffffec9dffff58a5ffff78adffffa8b5ffffa2b6ffffe8bcffff4ebeffffccc6ffffd4cdfffff0cfffffbad5ffff20d7ffff56f1ffff38f9ffff42f9ffffa8faffff60de0000d2de000088eb00009c210100f6280100ee290100eacd0100f4df0100ceeb010030fa010094fb01004afd0100
+      scrollPos: {x: 0, y: 0}
+      m_SelectedIDs: e2ae0100
+      m_LastClickedID: 110306
+      m_ExpandedIDs: 5c33feff483bfeff144ffeffa861feff367afeff6683feffd884feff4497feff0ea1feff18a7feff8aa8fefff6bafeffe0c1feffcec8feff5ccafeff6ad1feff78d9feffbae0feff00e9feffceeffeffa83cffff8c3dffffacb6ffffb6b6ffff2ab8ffff3cbbffffdcc2ffffc4c3fffff6c8ffff00c9ffff74caffff96cdffff36d5ffffa8dbffff02e6ffffd0e7ffffaef9ffffb8f9ffff2cfbffff545f0000348300004896000006a6000082d60000d2560100b25a0100ec720100cc760100588001002e83010032a0010008a3010080aa0100f2aa010004ae0100dab00100
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -794,9 +794,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 6.0398536, y: -8.123075, z: 0.42227036}
+    m_Target: {x: 473.30634, y: 223.12451, z: 1.7871872}
     speed: 2
-    m_Value: {x: 6.0398536, y: -8.123075, z: 0.42227036}
+    m_Value: {x: 473.30634, y: 223.12451, z: 1.7871872}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -847,9 +847,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 5.9039316
+    m_Target: 261.22467
     speed: 2
-    m_Value: 5.9039316
+    m_Value: 261.22467
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -897,7 +897,7 @@ MonoBehaviour:
     x: 290.4
     y: 73.6
     width: 879.6
-    height: 407
+    height: 415.8
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -908,7 +908,7 @@ MonoBehaviour:
   m_ShowGizmos: 0
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 0}
-  m_TargetSize: {x: 879.6, y: 386}
+  m_TargetSize: {x: 879.6, y: 394.8}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
@@ -925,8 +925,8 @@ MonoBehaviour:
     vZoomLockedByDefault: 0
     m_HBaseRangeMin: -351.84
     m_HBaseRangeMax: 351.84
-    m_VBaseRangeMin: -154.40001
-    m_VBaseRangeMax: 154.40001
+    m_VBaseRangeMin: -157.92
+    m_VBaseRangeMax: 157.92
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -935,7 +935,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 0
+    m_EnableMouseInput: 1
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1
@@ -945,22 +945,22 @@ MonoBehaviour:
       x: 0
       y: 21
       width: 879.6
-      height: 386
-    m_Scale: {x: 1, y: 1}
-    m_Translation: {x: 439.8, y: 193}
+      height: 394.8
+    m_Scale: {x: 1.0599452, y: 1.0599452}
+    m_Translation: {x: 439.8, y: 197.4}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -439.8
-      y: -193
-      width: 879.6
-      height: 386
+      x: -414.9271
+      y: -186.23604
+      width: 829.8542
+      height: 372.47208
     m_MinimalGUI: 1
   m_defaultScale: 1
-  m_LastWindowPixelSize: {x: 1099.5, y: 508.75}
+  m_LastWindowPixelSize: {x: 1099.5, y: 519.75}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000000000000
