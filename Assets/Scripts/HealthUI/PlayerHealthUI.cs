@@ -11,5 +11,7 @@ public class PlayerHealthUI : HealthUIController
 
         health_amount = transform.root.GetComponentInChildren<PlayerController>().health;
         max_health_amount = transform.root.GetComponentInChildren<PlayerController>().max_health;
+
+        healthUI.fillAmount = (health_amount / (float)max_health_amount);
     }
 }

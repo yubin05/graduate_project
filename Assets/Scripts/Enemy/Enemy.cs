@@ -37,14 +37,14 @@ public class Enemy : MonoBehaviour
         render = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
 
+        if (max_health < health) { max_health = health; }
         player = GameObject.FindWithTag("Player");
     }
 
     protected virtual void Start()
     {
         if (isRightDefaultValue) { render.flipX = false; }
-        else { render.flipX = true; }
-        max_health = health;
+        else { render.flipX = true; }        
 
         // hole detected raycast distance variable
         enemy_size = (transform.localScale.x + transform.localScale.y) / 2;

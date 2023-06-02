@@ -52,12 +52,12 @@ public class Boss : MonoBehaviour
         animator = GetComponent<Animator>();
 
         player = GameObject.FindWithTag("Player");
+        if (max_health < health) { max_health = health; }
     }
 
     protected virtual void Start()
     {
         render.flipX = false;
-        max_health = health;
     }
 
     protected virtual void Update()

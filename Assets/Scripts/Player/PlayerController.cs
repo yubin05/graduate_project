@@ -91,6 +91,8 @@ public class PlayerController : MonoBehaviour
 
         // Throw
         throwObject = GetComponentInChildren<ThrowObjectController>().gameObject;
+
+        if (max_health < health) { max_health = health; }   // health control
     }
 
     private void Start()

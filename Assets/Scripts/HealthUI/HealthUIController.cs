@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 public class HealthUIController : MonoBehaviour
 {
-    Image healthUI;
+    protected Image healthUI;
     protected int health_amount;
     protected int max_health_amount;
 
     protected virtual void Start()
     {
         healthUI = GetComponent<Image>();
-        healthUI.fillAmount = 1f;
+        //healthUI.fillAmount = 1f;     // fill amount initalize lower class
     }
 
     // following method controled by Enemy Script

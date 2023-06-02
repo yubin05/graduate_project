@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class EnemyHealthUI : HealthUIController
 {
+    Enemy enemy;
+
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
 
-        health_amount = transform.parent.parent.parent.GetComponent<Enemy>().health;
-        max_health_amount = transform.parent.parent.parent.GetComponent<Enemy>().max_health;
+        enemy = transform.parent.parent.parent.GetComponent<Enemy>();
+        health_amount = enemy.health;
+        max_health_amount = enemy.max_health;
+
+        healthUI.fillAmount = (health_amount / (float)max_health_amount);
     }
 }
