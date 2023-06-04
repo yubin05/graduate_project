@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 73904396406718211}
   - component: {fileID: 73904396406718212}
   - component: {fileID: 73904396406718214}
-  - component: {fileID: 1451278545985559713}
+  - component: {fileID: 8697063384136079069}
   m_Layer: 0
-  m_Name: MaxHealthPack
+  m_Name: AttackUPPack20
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 73904396406718215}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0d3e542041db03f4bb7384d4b09364c3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 496254eaa192f7946a180ced39f4ffe3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,20 +99,20 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.045}
+  m_Offset: {x: -0.0000000018626451, y: 0.05495558}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
-    oldSize: {x: 0.11, y: 0.09}
+    oldSize: {x: 0.1, y: 0.11}
     newSize: {x: 0.11, y: 0.09}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.11, y: 0.09}
+  m_Size: {x: 0.099723265, y: 0.10991116}
   m_EdgeRadius: 0
---- !u!114 &1451278545985559713
+--- !u!114 &8697063384136079069
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 73904396406718215}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 254136679ad68f848a0c4fceb0fa38c1, type: 3}
+  m_Script: {fileID: 11500000, guid: dec8bc99acad0504ea049f9a0b54019f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  addValue: 10
+  addValue: 20
