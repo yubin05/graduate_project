@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
         player_inital_max_health = player_script.max_health;
 
         player.SetActive(false);
+        playerUI.SetActive(false);
     }
 
     // this method called by PlayerController.cs
@@ -40,7 +41,10 @@ public class GameManager : MonoBehaviour
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);     // self scene reload
         ActiveGameOverPanel();
-        player.SetActive(false);
+        player.SetActive(false); playerUI.SetActive(false);
+
+        // Boss Health UI inactive
+        GameObject.FindWithTag("Boss").transform.Find("Boss_HealthUI").gameObject.SetActive(false);
     }
 
     void ActiveGameOverPanel()
@@ -57,7 +61,7 @@ public class GameManager : MonoBehaviour
     // this method called by GameOver.cs
     public void RevivePlayer()
     {
-        player.SetActive(true);
+        player.SetActive(true); playerUI.SetActive(true);
 
         player_script.player_sword_attack_power = player_inital_sword_attack_power;
         player_script.player_throw_attack_power = player_inital_throw_attack_power;

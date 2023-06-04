@@ -34,5 +34,6 @@ public class StageManager : MonoBehaviour
     {
         stageClearPanel.SetActive(true);
         player.SetActive(false);
+        playerUI.SetActive(false);
     }
 }

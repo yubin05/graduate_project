@@ -7,7 +7,7 @@ public class Boss : MonoBehaviour
     GameManager gameManager;
 
     protected Rigidbody2D rigid;
-    protected SpriteRenderer render;
+    [HideInInspector] public SpriteRenderer render;
     protected Animator animator;
 
     // Player Object
@@ -28,7 +28,7 @@ public class Boss : MonoBehaviour
     public int contactPower;
 
     // boss position.x compare player position.x
-    protected bool rightThanPlayerX = true;
+    protected bool rightThanPlayerX;    // initalize in sub class
     protected float distanceAbsXDifferenceOfPlayer;
 
     protected int moveSpeed;
@@ -118,18 +118,6 @@ public class Boss : MonoBehaviour
     // move route
     public virtual void Move()
     {
-        if (rightThanPlayerX) { moveDirection = -1; }   // left move because player exist left than boss
-        else { moveDirection = 1; }                     // right move because player exist light than boss
-
-        if (moveSwitch)
-        {
-            // when player close boss, boss move to player
-            if (distanceAbsXDifferenceOfPlayer <= 8f && !isStaggered_velocity)
-            {
-                rigid.velocity = new Vector2(moveDirection * moveSpeed, rigid.velocity.y);
-            }
-        }
-
         // if hole exist front, boss turn
         RaycastHit2D hole_check = Physics2D.Raycast(new Vector2(rigid.position.x + (moveDirection / 2.0f), rigid.position.y),
                                                 Vector3.down, 1f, LayerMask.GetMask("Floor", "Platform"));
@@ -142,7 +130,7 @@ public class Boss : MonoBehaviour
     // when boss detect player and boss attack player
     public virtual void Attack()
     {
-
+        // this method implement in subclass
     }
 
     // when boss contact player
@@ -169,30 +157,29 @@ public class Boss : MonoBehaviour
         rigid.velocity = Vector2.zero;  // stop
 
         // if animation finish, death animation is keeping
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Death") &&
-            animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f)
-        {
-            animator.Play("Death", -1, 0.99999f);
-            StartCoroutine(DestroyBoss());
-        }
+        DeadAnimationTrigger();
+    }
+    protected virtual void DeadAnimationTrigger()
+    {
+        // this method implement in subclass
     }
 
-    protected virtual IEnumerator DestroyBoss()
+    protected virtual IEnumerator DestroyBoss(float waitTime)
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(waitTime);
         gameManager.ActiveStageClearPanelController(GameObject.FindWithTag("StageManager"));
         Destroy(gameObject);
     }
 
     public virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform.tag == "Wall")
-        // when enemy contact wall or door
+        if (collision.transform.tag == "Wall" || collision.transform.tag == "EntryBossRoomDoor")
+        // when boss contact wall or door
         {
             render.flipX = !render.flipX;   // turn
         }
         else if (collision.transform.tag == "Player")
-        // when enemy contact player
+        // when boss contact player
         {
             Contact(collision, contactPower);
         }
@@ -232,7 +219,7 @@ public class Boss : MonoBehaviour
 
         // health decreased
         health -= player_attack_power;
-        //gameObject.GetComponentInChildren<EnemyHealthUI>().setHealthUI(health); // set health bar UI
+        gameObject.GetComponentInChildren<BossHealthUI>().setHealthUI(health); // set health bar UI
     }
 
     public virtual IEnumerator OffHitAnimation()

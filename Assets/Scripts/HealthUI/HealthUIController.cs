@@ -15,7 +15,7 @@ public class HealthUIController : MonoBehaviour
         //healthUI.fillAmount = 1f;     // fill amount initalize lower class
     }
 
-    // following method controled by Enemy Script
+    // following method controled by other Script
     public virtual void setHealthUI(int newHealth)
     {
         health_amount = newHealth;

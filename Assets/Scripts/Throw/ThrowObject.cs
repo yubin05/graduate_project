@@ -17,6 +17,7 @@ public class ThrowObject : MonoBehaviour
 
     // Coliision Enemy
     Enemy enemy;
+    Boss boss;
 
     private int directionX;
     private float moveSpeed;
@@ -55,6 +56,14 @@ public class ThrowObject : MonoBehaviour
             // Enemy Health Decreased
             enemy = collision.gameObject.GetComponent<Enemy>();
             enemy.Hit(playerController.player_throw_attack_power);
+        }
+        else if (collision.transform.tag == "Boss")
+        {
+            StopMove();
+
+            // Boss Health Decreased
+            boss = collision.gameObject.GetComponent<Boss>();
+            boss.Hit(playerController.player_throw_attack_power);
         }
         else if (collision.transform.tag == "Wall") 
         {

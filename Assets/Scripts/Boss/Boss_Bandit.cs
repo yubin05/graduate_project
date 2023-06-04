@@ -67,6 +67,23 @@ public class Boss_Bandit : Boss
         if (!isDead) { AttackPattern(); }
     }
 
+    public override void Move()
+    {
+        base.Move();
+
+        if (rightThanPlayerX) { moveDirection = -1; }   // left move because player exist left than bandit
+        else { moveDirection = 1; }                     // right move because player exist light than bandit
+
+        if (moveSwitch)
+        {
+            // when player close bandit, bandit move to player
+            if (distanceAbsXDifferenceOfPlayer <= 8f && !isStaggered_velocity)
+            {
+                rigid.velocity = new Vector2(moveDirection * moveSpeed, rigid.velocity.y);
+            }
+        }
+    }
+
     protected override void Anim_Control()
     {
         base.Anim_Control();
@@ -301,6 +318,15 @@ public class Boss_Bandit : Boss
             dead_sound_triggered = true;
         }
         base.Dead();
+    }
+    protected override void DeadAnimationTrigger()
+    {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Death") &&
+            animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f)
+        {
+            animator.Play("Death", -1, 0.99999f);
+            StartCoroutine(DestroyBoss(2f));
+        }
     }
 
     IEnumerator WalkSoundOff()
