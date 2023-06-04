@@ -4,21 +4,28 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
-    GameObject player;
-    PlayerController player_script;
+    protected GameObject player;
+    protected PlayerController player_script;
 
-    private void Start()
+    protected virtual void Start()
     {
         player = GameObject.FindWithTag("Player");
         player_script = player.GetComponent<PlayerController>();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         // Player is Landing
         if (collision.gameObject.tag == "Player" && collision.collider == player.GetComponent<CapsuleCollider2D>())
         {
             player_script.Landing();
+        }
+    }
+    protected virtual void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player" && collision.collider == player.GetComponent<CapsuleCollider2D>())
+        {
+            player_script.isGrounded = false;
         }
     }
 }

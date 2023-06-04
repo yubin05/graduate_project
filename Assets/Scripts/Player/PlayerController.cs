@@ -471,13 +471,4 @@ public class PlayerController : MonoBehaviour
         gameObject.layer = 6;   // Playerd  
         render.color = new Color(1, 1, 1, 1);
     }
-
-    // landing
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "Floor")
-        {
-            Landing();
-        }
-    }
 }
