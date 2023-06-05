@@ -118,13 +118,13 @@ public class Boss : MonoBehaviour
     // move route
     public virtual void Move()
     {
-        // if hole exist front, boss turn
+        /*// if hole exist front, boss turn
         RaycastHit2D hole_check = Physics2D.Raycast(new Vector2(rigid.position.x + (moveDirection / 2.0f), rigid.position.y),
                                                 Vector3.down, 1f, LayerMask.GetMask("Floor", "Platform"));
         if (hole_check.collider == null)
         {
             render.flipX = !render.flipX;   // turn
-        }
+        }*/
     }
 
     // when boss detect player and boss attack player
