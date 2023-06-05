@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class GameManager : MonoBehaviour
 
     GameObject playerUI;
     GameObject gameOverUI;
+    GameObject boss_healthUI;
 
     private void Awake()
     {
@@ -44,7 +46,12 @@ public class GameManager : MonoBehaviour
         player.SetActive(false); playerUI.SetActive(false);
 
         // Boss Health UI inactive
-        GameObject.FindWithTag("Boss").transform.Find("Boss_HealthUI").gameObject.SetActive(false);
+        try
+        {
+            GameObject boss_healthUI = 
+                GameObject.FindWithTag("Boss").transform.Find("Boss_HealthUI").gameObject;
+            boss_healthUI.SetActive(false);
+        } catch (Exception) { }
     }
 
     void ActiveGameOverPanel()
