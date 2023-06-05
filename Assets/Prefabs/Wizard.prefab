@@ -421,8 +421,8 @@ Transform:
   m_GameObject: {fileID: 2267039909503989834}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.69, y: -2.9, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4749917245424033386}
   - {fileID: 3480645006905257210}
@@ -564,9 +564,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c08e43aa3c4d242adb14daf71286c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 30
-  max_health: 30
-  attackPower: 10
+  health: 777
+  max_health: 777
+  attackPower: 60
   contactPower: 5
   animator: {fileID: 0}
   teleportCoolTime: 5
