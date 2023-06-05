@@ -223,7 +223,7 @@ MonoBehaviour:
   health: 50
   max_health: 50
   walkSpeed: 5
-  jumpPower: 20
+  jumpPower: 21
   combo_delay: 0.3
   playerDamagedTime: 2
   max_velocity_y: 0

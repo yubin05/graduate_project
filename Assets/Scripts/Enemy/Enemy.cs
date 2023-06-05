@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     protected Rigidbody2D rigid;
-    protected SpriteRenderer render;
+    [HideInInspector] public SpriteRenderer render;
 
     // Player Object
     protected GameObject player;
