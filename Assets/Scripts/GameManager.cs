@@ -46,12 +46,8 @@ public class GameManager : MonoBehaviour
         player.SetActive(false); playerUI.SetActive(false);
 
         // Boss Health UI inactive
-        try
-        {
-            GameObject boss_healthUI = 
-                GameObject.FindWithTag("Boss").transform.Find("Boss_HealthUI").gameObject;
-            boss_healthUI.SetActive(false);
-        } catch (Exception) { }
+        try { GameObject.FindWithTag("Boss").transform.Find("Boss_HealthUI").gameObject.SetActive(false); }
+        catch (Exception) { }
     }
 
     void ActiveGameOverPanel()
