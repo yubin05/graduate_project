@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody2D rigid;
     SpriteRenderer render;
-    Animator animator;
+    [HideInInspector] public Animator animator;
     BoxCollider2D colliderOfCollision;
 
     // GameObject crouch clone
