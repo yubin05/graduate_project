@@ -6,7 +6,7 @@ public class Explosion : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 6)    // Player(layer)
+        if (collision.gameObject.tag == "Player" && collision.gameObject.layer == 6)    // Player(layer)
         {
             collision.gameObject.GetComponent<PlayerController>().Dead();
         }

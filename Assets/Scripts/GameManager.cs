@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     GameObject gameOverUI;
     GameObject boss_healthUI;
 
+    bool isGameOver = false;
+
     private void Awake()
     {
         playerUI = GameObject.FindWithTag("PlayerUI");
@@ -42,7 +44,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);     // self scene reload
-        ActiveGameOverPanel();
+        isGameOver = true; ActiveGameOverPanel();
         player.SetActive(false); playerUI.SetActive(false);
 
         // Boss Health UI inactive
@@ -58,7 +60,7 @@ public class GameManager : MonoBehaviour
     // this method called by Boss.cs
     public void ActiveStageClearPanelController(GameObject stageManager)
     {
-        stageManager.GetComponent<StageManager>().ActiveStageClearPanel();
+        if (!isGameOver) { stageManager.GetComponent<StageManager>().ActiveStageClearPanel(); }
     }
 
     // this method called by GameOver.cs

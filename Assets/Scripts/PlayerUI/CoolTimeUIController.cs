@@ -5,9 +5,15 @@ using UnityEngine.UI;
 
 public class CoolTimeUIController : MonoBehaviour
 {
-    Image cooltimeImage;
+    protected Image cooltimeImage;
+    protected PlayerController player_script;
 
-    private void Start()
+    protected virtual void Awake()
+    {
+        player_script = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+    }
+
+    protected virtual void Start()
     {
         cooltimeImage = GetComponent<Image>();
     }
@@ -26,4 +32,6 @@ public class CoolTimeUIController : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
     }
+
+    
 }

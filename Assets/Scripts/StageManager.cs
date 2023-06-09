@@ -17,6 +17,7 @@ public class StageManager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
 
         playerUI = GameObject.FindWithTag("PlayerUI");
+        playerUI.GetComponentInChildren<ThrowCoolTimeUIController>().InitalizeCoolTime();
         if (playerCanDash) 
         { 
             player.transform.Find("Skill_Dash").gameObject.SetActive(true);

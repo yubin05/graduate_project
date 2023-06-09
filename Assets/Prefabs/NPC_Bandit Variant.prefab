@@ -157,7 +157,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: c5495f9145652994baa9b0a4caeacdd3, type: 2}
     - target: {fileID: 6297284177080562152, guid: 175a7892444b2434f8b6ae27c761dc68, type: 3}
       propertyPath: m_Name
-      value: NPC_Bandit
+      value: NPC_Bandit Variant
       objectReference: {fileID: 0}
     - target: {fileID: 6915529988935013602, guid: 175a7892444b2434f8b6ae27c761dc68, type: 3}
       propertyPath: m_Size.x
@@ -175,6 +175,14 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 1.796175
       objectReference: {fileID: 0}
+    - target: {fileID: 7914793684179567054, guid: 175a7892444b2434f8b6ae27c761dc68, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7914793684179567054, guid: 175a7892444b2434f8b6ae27c761dc68, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -4827201375843143100, guid: 4f1c8bfb44959f741b7c18a835223aa7, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 175a7892444b2434f8b6ae27c761dc68, type: 3}
 --- !u!224 &3009640279021975115 stripped

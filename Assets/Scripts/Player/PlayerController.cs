@@ -33,7 +33,6 @@ public class PlayerController : MonoBehaviour
     private bool soundPlayed = false;
     private bool isDamaged = false;
     private bool playedDeadSound = false; // play dead audioclip only once
-    private bool canThrow = true;
     private bool canFall_animation = true;
 
     public int health;
@@ -50,6 +49,7 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector] public bool isGrounded;
     [HideInInspector] public bool canInput = true;
+    [HideInInspector] public bool canThrow = true;
 
     // hitbox
     static GameObject hitbox;   // Player's attack collider
@@ -336,7 +336,7 @@ public class PlayerController : MonoBehaviour
 
                 isGrounded = false;
                 animator.SetTrigger("jump_trigger");    // jump trigger animation
-                audioManager.PlayAudio("Jump");
+                animator.Play("Jump"); audioManager.PlayAudio("Jump");
             }
         }
     }
