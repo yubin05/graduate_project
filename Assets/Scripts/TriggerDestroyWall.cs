@@ -17,8 +17,11 @@ public class TriggerDestroyWall : MonoBehaviour
     private void OnDestroy()
     {
         // unity prevent remaining collider bug after object destroy
-        root_wall.SetActive(false); root_wall.SetActive(true);
+        if (root_wall != null)
+        {
+            root_wall.SetActive(false); root_wall.SetActive(true);
+        }
 
-        Destroy(target_wall);
+        if (target_wall != null) { Destroy(target_wall); }
     }
 }
