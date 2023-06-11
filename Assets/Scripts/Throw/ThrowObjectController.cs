@@ -31,7 +31,7 @@ public class ThrowObjectController : MonoBehaviour
     public void InstantiateClone(bool flipX)
     {
         // Instantiate
-        GameObject newObject = Instantiate(targetGameObject, transform.position, transform.rotation) as GameObject;
+        GameObject newObject = Instantiate(targetGameObject, transform.position, transform.rotation);
         if (flipX) { newObject.transform.localScale *= -1; }
 
         // cooltime UI control

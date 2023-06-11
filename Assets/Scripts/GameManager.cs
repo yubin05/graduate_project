@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour
 
         player.SetActive(false);
         playerUI.SetActive(false);
+
+        isGameOver = false;
     }
 
     // this method called by PlayerController.cs
