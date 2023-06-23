@@ -91,6 +91,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: The Monsters are coming...
       objectReference: {fileID: 0}
+    - target: {fileID: 5234026093995233779, guid: 175a7892444b2434f8b6ae27c761dc68, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6297284177080562149, guid: 175a7892444b2434f8b6ae27c761dc68, type: 3}
       propertyPath: m_RootOrder
       value: 0

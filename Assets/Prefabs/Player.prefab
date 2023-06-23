@@ -220,6 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bf7818d535e9a845a0cb10ebcd76b7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   health: 50
   max_health: 50
   walkSpeed: 5
@@ -232,6 +233,7 @@ MonoBehaviour:
   dash_power: 15
   isGrounded: 0
   canInput: 1
+  canThrow: 1
 --- !u!70 &4554834805683292179
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
