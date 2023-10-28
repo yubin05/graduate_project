@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool isGameOver;
     float gameOverUIFadeInTime;
 
+    int screenWidth = 1920;  int screenHeight = 1080;
+
     private void Awake()
     {
         playerUI = GameObject.FindWithTag("PlayerUI");
@@ -30,6 +32,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        Screen.SetResolution(screenWidth, screenHeight, true);
         isGameOver = false;
 
         player = GameObject.FindWithTag("Player");
