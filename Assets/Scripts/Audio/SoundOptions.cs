@@ -18,15 +18,14 @@ public class SoundOptions : MonoBehaviour
     {
         if (PlayerPrefs.HasKey(volumeSliderValueName))
         {
-            audioMixer.SetFloat("Master", Mathf.Log10(
-                PlayerPrefs.GetFloat(volumeSliderValueName)) * 20);
+            audioMixer.SetFloat("Master", calcMixerVolumeArg(PlayerPrefs.GetFloat(volumeSliderValueName)));
             MasterSlider.value = PlayerPrefs.GetFloat(volumeSliderValueName);
             PlayerPrefs.SetFloat(volumeSliderValueName, MasterSlider.value);
         }
         else
         {
-            MasterSlider.value = 1f;
-            audioMixer.SetFloat("Master", Mathf.Log10(MasterSlider.value) * 20);
+            MasterSlider.value = 0.8f;
+            audioMixer.SetFloat("Master", calcMixerVolumeArg(MasterSlider.value));
             PlayerPrefs.SetFloat(volumeSliderValueName, MasterSlider.value);
         }
     }
@@ -35,10 +34,15 @@ public class SoundOptions : MonoBehaviour
     public void SetMasterVolme()
     {
         // 로그 연산 값 전달
-        audioMixer.SetFloat("Master", Mathf.Log10(
-            PlayerPrefs.GetFloat(volumeSliderValueName)) * 20);
+        audioMixer.SetFloat("Master", calcMixerVolumeArg(PlayerPrefs.GetFloat(volumeSliderValueName)));
         PlayerPrefs.SetFloat(volumeSliderValueName, MasterSlider.value);
     }
+
+    float calcMixerVolumeArg(float volumeSilderValue)
+    {
+        return Mathf.Log10(volumeSilderValue) * 40;
+    }
+
     //public void SetBgmVolme()
     //{
     //     // 로그 연산 값 전달
