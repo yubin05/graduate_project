@@ -8,8 +8,10 @@ public class Wizard_FireBall_Controller : MonoBehaviour
     public GameObject fireball;
 
     // called by Wizard.cs
-    public void Instantiate_Fireball()
+    public void Instantiate_Fireball(Wizard wizardScript)
     {
-        Instantiate(fireball, new Vector2(transform.position.x, transform.position.y + 0.8f), transform.rotation, transform);
+        GameObject fireballObj =
+            Instantiate(fireball, new Vector2(transform.position.x, transform.position.y + 0.8f), transform.rotation, FindObjectOfType<PoolManager>().transform);
+        fireballObj.GetComponent<Wizard_FireBall>().wizard_script = wizardScript;
     }
 }

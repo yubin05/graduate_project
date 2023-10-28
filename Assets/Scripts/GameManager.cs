@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     GameObject gameOverUI;
     GameObject boss_healthUI;
 
-    bool isGameOver = false;
+    [HideInInspector] public bool isGameOver;
     float gameOverUIFadeInTime;
 
     private void Awake()
@@ -30,8 +30,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        isGameOver = false;
+
         player = GameObject.FindWithTag("Player");
         player_script = player.GetComponent<PlayerController>();
+
+        player_script.InitOnStart();
         
         // player stat initalization for restarting
         player_inital_sword_attack_power = player_script.player_sword_attack_power;
@@ -50,7 +54,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);     // self scene reload
-        isGameOver = true; ActiveGameOverPanel();
+        ActiveGameOverPanel();  // isGameOver=true by controled PlayerController.cs
         player.SetActive(false); playerUI.SetActive(false);
 
         // Boss Health UI inactive
@@ -104,12 +108,16 @@ public class GameManager : MonoBehaviour
         player.GetComponentInChildren<PlayerHealthUI>().setHealthUI(player_inital_health);
         player.GetComponentInChildren<PlayerHealthUI>().setMaxHealthUI(player_inital_max_health);
         player_script.Vincible();
+
+        isGameOver = false;     // 게임 오버 플래그 해제 - 재시작 시, 게임매니저는 초기화 되지 않기 때문
     }
 
     // this method called by other scripts in need of loading main menu scene
     // because prevent overlap DontDestroyOnLoad object
     public void LoadMainMenuScene()
     {
+        isGameOver = false;     // 게임 오버 플래그 해제 - 재시작 시, 게임매니저는 초기화 되지 않기 때문
+
         Destroy(gameOverUI); Destroy(playerUI);
         SceneManager.LoadScene(0);
         Destroy(player); Destroy(gameObject);

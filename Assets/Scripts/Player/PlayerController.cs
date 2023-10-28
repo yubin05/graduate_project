@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     private float time_after_attack;
     private int combo_count = 0;
     private bool soundPlayed = false;
-    private bool isDamaged = false;
+    public bool isDamaged = false;
     private bool playedDeadSound = false; // play dead audioclip only once
     private bool canFall_animation = true;
 
@@ -42,17 +42,21 @@ public class PlayerController : MonoBehaviour
     //public float floorColiderSubtract;
     public float combo_delay;
     public float playerDamagedTime;
-    public float max_velocity_y;
+    float min_velocity_y = -30f;            // 낙하속도 제한 등의 사용
+    Vector2 playerVelocity;
+
     public int player_sword_attack_power;   // MouseButtonDown(0)
     public int player_throw_attack_power;   // MouseButtonDown(1)
     public float dash_power;
 
     [HideInInspector] public bool isGrounded;
+    [HideInInspector] public bool bInputJumpKey = false;
     [HideInInspector] public bool canInput = true;
     [HideInInspector] public bool canThrow = true;
 
     // hitbox
     static GameObject hitbox;   // Player's attack collider
+    float hitTimer; float hitDelay = 5f;     // isDamaged=false 안되는 버그 방지를 위한 타이머와 딜레이
 
     // Throw
     static GameObject throwObject;
@@ -95,7 +99,12 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    private void Start()
+    private void OnEnable()
+    {
+        isDamaged = false;
+    }
+
+    public void InitOnStart()
     {
         // get audio manager
         audio_ = GameObject.Find("AudioManager_Player");
@@ -106,12 +115,24 @@ public class PlayerController : MonoBehaviour
         player_throw_attack_power = 5;
         health = 50;
         if (max_health < health) { max_health = health; }   // health control
+
+        hitTimer = 0f;
     }
 
     // Update is called once per frame
     void Update()
     {
         Anim_Control();
+
+        // 낙하 속도 제한
+        if (rigid.velocity.y < min_velocity_y)
+        {
+            playerVelocity = rigid.velocity;
+            playerVelocity.y = min_velocity_y;  // 제한치 이상 넘어가지 않도록 조절
+
+            // 플레이어 속도 적용
+            rigid.velocity = playerVelocity;
+        }
 
         // player can input whether input state
         if (canInput)
@@ -130,6 +151,17 @@ public class PlayerController : MonoBehaviour
         //Debug.DrawRay(new Vector2(transform.position.x, transform.position.y - temp_offset_y), Vector2.down, Color.green);
         //RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - temp_offset_y), Vector2.down, LayerMask.GetMask("Platform"));
         //if (hit.collider != null) { Debug.Log("����"); }
+    }
+
+    private void LateUpdate()
+    {
+        hitTimer += Time.deltaTime;
+        if (isDamaged && hitTimer > hitDelay)
+        {
+            hitTimer = 0f;
+            isDamaged = false;
+        }
+            
     }
 
     // update animator variable like executing animation every time
@@ -335,6 +367,10 @@ public class PlayerController : MonoBehaviour
             // jump
             else if (Input.GetKeyDown(KeyCode.Space))
             {
+                CancelInvoke("AfterJump");
+                bInputJumpKey = true;
+                Invoke("AfterJump", 0.5f);
+
                 // rating
                 if (moveSpeed > walkSpeed) { rating = 1.2f; }
                 else { rating = 1f; }
@@ -345,6 +381,10 @@ public class PlayerController : MonoBehaviour
                 animator.Play("Jump"); audioManager.PlayAudio("Jump");
             }
         }
+    }
+    void AfterJump()
+    {
+        bInputJumpKey = false;
     }
 
     public void Crouch()
@@ -371,6 +411,8 @@ public class PlayerController : MonoBehaviour
     // you can use this Dead() method directly by others
     public virtual void Dead()
     {
+        gameManager.isGameOver = true;
+
         canInput = false;   // player can not move while dying
         isDamaged = true;
 
@@ -402,6 +444,7 @@ public class PlayerController : MonoBehaviour
     {
         // Player hit by enemy
         {
+            hitTimer = 0f;
             Hit(hitDamage);
 
             int reDircX = (transform.position.x - otherTransform.position.x > 0) ? 1 : -1;

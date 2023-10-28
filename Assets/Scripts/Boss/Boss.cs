@@ -178,7 +178,7 @@ public class Boss : MonoBehaviour
         {
             render.flipX = !render.flipX;   // turn
         }
-        else if (collision.transform.tag == "Player")
+        else if (collision.transform.tag == "Player" && !player.GetComponent<PlayerController>().isDamaged)
         // when boss contact player
         {
             Contact(collision, contactPower);
