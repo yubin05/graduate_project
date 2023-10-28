@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
         // Throw
         throwObject = GetComponentInChildren<ThrowObjectController>().gameObject;
 
-        if (max_health < health) { max_health = health; }   // health control
+        
     }
 
     private void Start()
@@ -100,6 +100,12 @@ public class PlayerController : MonoBehaviour
         // get audio manager
         audio_ = GameObject.Find("AudioManager_Player");
         audioManager = audio_.GetComponent<AudioManager_Player>();
+
+        // player status initalization
+        player_sword_attack_power = 10;
+        player_throw_attack_power = 5;
+        health = 50;
+        if (max_health < health) { max_health = health; }   // health control
     }
 
     // Update is called once per frame

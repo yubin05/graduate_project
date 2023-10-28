@@ -4860,6 +4860,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MiniSlime (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5249883616842458382, guid: 7124520a77998794f985564a159fc9bb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5249883617798594176, guid: 7124520a77998794f985564a159fc9bb, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -14143,6 +14147,10 @@ PrefabInstance:
     - target: {fileID: 5249883616842458382, guid: 7124520a77998794f985564a159fc9bb, type: 3}
       propertyPath: m_Name
       value: MiniSlime (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5249883616842458382, guid: 7124520a77998794f985564a159fc9bb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5249883617798594176, guid: 7124520a77998794f985564a159fc9bb, type: 3}
       propertyPath: m_RootOrder
@@ -23847,7 +23855,6 @@ Transform:
   - {fileID: 1062988365}
   - {fileID: 394623342}
   - {fileID: 708273176}
-  - {fileID: 1032117706}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -25871,6 +25878,10 @@ PrefabInstance:
     - target: {fileID: 5249883616842458382, guid: 7124520a77998794f985564a159fc9bb, type: 3}
       propertyPath: m_Name
       value: MiniSlime
+      objectReference: {fileID: 0}
+    - target: {fileID: 5249883616842458382, guid: 7124520a77998794f985564a159fc9bb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5249883617798594176, guid: 7124520a77998794f985564a159fc9bb, type: 3}
       propertyPath: m_RootOrder
@@ -58896,6 +58907,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MiniSlime (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5249883616842458382, guid: 7124520a77998794f985564a159fc9bb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5249883617798594176, guid: 7124520a77998794f985564a159fc9bb, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -60097,37 +60112,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &1032117705
-GameObject:
-  m_ObjectHideFlags: 8
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1032117706}
-  m_Layer: 0
-  m_Name: 'BlueRino (Missing Prefab with guid: 55a50505c82b74640a4cdfb7007abbd5)'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1032117706
-Transform:
-  m_ObjectHideFlags: 8
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1032117705}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 438613009}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1032873982
 GameObject:
   m_ObjectHideFlags: 0
@@ -72114,6 +72098,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MiniSlime (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5249883616842458382, guid: 7124520a77998794f985564a159fc9bb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5249883617798594176, guid: 7124520a77998794f985564a159fc9bb, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -79752,6 +79740,10 @@ PrefabInstance:
       propertyPath: attackPower
       value: 170
       objectReference: {fileID: 0}
+    - target: {fileID: 8659539360308012687, guid: 602a2148bbb972946a037ef70a65bab5, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 20e7be86a08a26448ae39a996d786395, type: 2}
     - target: {fileID: 8659539361469224899, guid: 602a2148bbb972946a037ef70a65bab5, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -95559,6 +95551,10 @@ PrefabInstance:
     - target: {fileID: 5249883616842458382, guid: 7124520a77998794f985564a159fc9bb, type: 3}
       propertyPath: m_Name
       value: MiniSlime (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5249883616842458382, guid: 7124520a77998794f985564a159fc9bb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5249883617798594176, guid: 7124520a77998794f985564a159fc9bb, type: 3}
       propertyPath: m_RootOrder

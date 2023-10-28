@@ -2006,6 +2006,14 @@ PrefabInstance:
       propertyPath: player_sword_attack_power
       value: 1000
       objectReference: {fileID: 0}
+    - target: {fileID: 4554834806760681596, guid: baad0e29c3a4e7c49a87c47e5ab4d104, type: 3}
+      propertyPath: playerHealthText
+      value: 
+      objectReference: {fileID: 1681473273}
+    - target: {fileID: 4815098150089137565, guid: baad0e29c3a4e7c49a87c47e5ab4d104, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: baad0e29c3a4e7c49a87c47e5ab4d104, type: 3}
 --- !u!1 &1485711496
@@ -2414,6 +2422,17 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1681473273 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3647571312041984640, guid: 5e205225d2a222d43abaf553857f1df5, type: 3}
+  m_PrefabInstance: {fileID: 2147467937470522487}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1706853942
 GameObject:
   m_ObjectHideFlags: 0

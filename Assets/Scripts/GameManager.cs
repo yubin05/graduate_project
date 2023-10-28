@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,6 +20,7 @@ public class GameManager : MonoBehaviour
     GameObject boss_healthUI;
 
     bool isGameOver = false;
+    float gameOverUIFadeInTime;
 
     private void Awake()
     {
@@ -40,6 +43,7 @@ public class GameManager : MonoBehaviour
         playerUI.SetActive(false);
 
         isGameOver = false;
+        gameOverUIFadeInTime = 3f;
     }
 
     // this method called by PlayerController.cs
@@ -57,6 +61,27 @@ public class GameManager : MonoBehaviour
     void ActiveGameOverPanel()
     {
         gameOverUI.SetActive(true);
+
+        Image[] gameOverUI_images = gameOverUI.GetComponentsInChildren<Image>();
+        foreach (Image gameOverUI_image in gameOverUI_images)
+        {
+            Color gameOverUI_imageColor = gameOverUI_image.color;
+            gameOverUI_imageColor.a = 0f;
+            gameOverUI_image.color = gameOverUI_imageColor;
+        }
+        Text[] gameOverUI_texts = gameOverUI.GetComponentsInChildren<Text>();
+        foreach (Text gameOverUI_text in gameOverUI_texts)
+        {
+            Color gameOverUI_textColor = gameOverUI_text.color;
+            gameOverUI_textColor.a = 0f;
+            gameOverUI_text.color = gameOverUI_textColor;
+        }
+
+        // fade in È¿°ú
+        //Image[] gameOverUI_images = gameOverUI.GetComponentsInChildren<Image>();
+        foreach (Image gameOverUI_image in gameOverUI_images) gameOverUI_image.DOFade(1, gameOverUIFadeInTime);
+        //Text[] gameOverUI_texts = gameOverUI.GetComponentsInChildren<Text>();
+        foreach (Text gameOverUI_text in gameOverUI_texts) gameOverUI_text.DOFade(1, gameOverUIFadeInTime);
     }
 
     // this method called by Boss.cs
