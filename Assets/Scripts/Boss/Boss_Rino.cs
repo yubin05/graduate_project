@@ -78,7 +78,7 @@ public class Boss_Rino : Boss
     {
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Death"))
         {
-            StartCoroutine(DestroyBoss(1f));
+            StartCoroutine(DestroyBoss(0.9f));
         }
     }
 }

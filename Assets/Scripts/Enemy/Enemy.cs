@@ -145,7 +145,8 @@ public class Enemy : MonoBehaviour
         {
             render.flipX = !render.flipX;   // turn
         }
-        else if (collision.transform.tag == "Player")
+        // 중복 타격 방지를 위한 장치(player.isDamaged == false 체크) 추가
+        else if (collision.transform.tag == "Player" && !player.GetComponent<PlayerController>().isDamaged)
             // when enemy contact player
         {
             Contact(collision, contactPower);

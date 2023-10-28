@@ -9,15 +9,19 @@ public abstract class ItemPack : MonoBehaviour
     protected AudioSource audioSource;
     [SerializeField] public AudioClip playAudioClip;
 
+    protected bool bGetItem;
     protected virtual void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        bGetItem = false;   // 코루틴 딜레이로 인한 중복 획득 방지하기 위한 변수
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "Player")
+        if (!bGetItem && collider.gameObject.tag == "Player")
         {
+            bGetItem = true;
+
             GameObject player = collider.gameObject;
             PlayerController player_script = player.GetComponent<PlayerController>();
 

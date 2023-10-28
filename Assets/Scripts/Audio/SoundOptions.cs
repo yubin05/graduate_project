@@ -12,11 +12,32 @@ public class SoundOptions : MonoBehaviour
     //public Slider BgmSlider;
     //public Slider SfxSlider;
 
-    // 볼륨 조절
+    private readonly string volumeSliderValueName = "volumeSliderValue";
+    //private readonly string audioMixerValueName = "audioMixerValue";
+    private void Start()
+    {
+        if (PlayerPrefs.HasKey(volumeSliderValueName))
+        {
+            audioMixer.SetFloat("Master", Mathf.Log10(
+                PlayerPrefs.GetFloat(volumeSliderValueName)) * 20);
+            MasterSlider.value = PlayerPrefs.GetFloat(volumeSliderValueName);
+            PlayerPrefs.SetFloat(volumeSliderValueName, MasterSlider.value);
+        }
+        else
+        {
+            MasterSlider.value = 1f;
+            audioMixer.SetFloat("Master", Mathf.Log10(MasterSlider.value) * 20);
+            PlayerPrefs.SetFloat(volumeSliderValueName, MasterSlider.value);
+        }
+    }
+
+    // 볼륨 조절 - Slider의 OnValueChanged 이벤트에 등록
     public void SetMasterVolme()
     {
         // 로그 연산 값 전달
-        audioMixer.SetFloat("Master", Mathf.Log10(MasterSlider.value) * 20);
+        audioMixer.SetFloat("Master", Mathf.Log10(
+            PlayerPrefs.GetFloat(volumeSliderValueName)) * 20);
+        PlayerPrefs.SetFloat(volumeSliderValueName, MasterSlider.value);
     }
     //public void SetBgmVolme()
     //{
