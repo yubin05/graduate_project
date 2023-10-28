@@ -12,7 +12,7 @@ public class Wizard_FireBall : MonoBehaviour
     Transform target_transform;
 
     // wizard
-    Wizard wizard_script;
+    [HideInInspector] public Wizard wizard_script;
 
     private float moveSpeed;
 
@@ -24,7 +24,7 @@ public class Wizard_FireBall : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         target_transform = player.transform;
 
-        wizard_script = transform.parent.parent.parent.parent.parent.parent.gameObject.GetComponent<Wizard>();
+        //wizard_script = transform.parent.parent.parent.parent.parent.parent.gameObject.GetComponent<Wizard>();
 
         moveSpeed = wizard_script.fireball_speed;
 
@@ -44,7 +44,7 @@ public class Wizard_FireBall : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 6)    // Player
+        if (collision.gameObject.layer == 6 && !player.GetComponent<PlayerController>().isDamaged)    // Player
         {
             player.GetComponent<PlayerController>().Hit(wizard_script.attackPower);
         }

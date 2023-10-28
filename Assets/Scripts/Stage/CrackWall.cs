@@ -6,12 +6,16 @@ using UnityEngine.Tilemaps;
 public class CrackWall : MonoBehaviour
 {
     AudioSource audioSource;
-    [SerializeField] public AudioClip destroyed_audio;
+    AudioClip destroyed_audio;
+    private readonly string audioFolderPath = "AudioClip/";
+    private readonly string destroyAudioFileName = "Crack";
 
     private Tilemap tilemap;
 
     private void Start()
     {
+        destroyed_audio = Resources.Load<AudioClip>(audioFolderPath + destroyAudioFileName);
+
         audioSource = gameObject.GetComponent<AudioSource>();
         audioSource.clip = destroyed_audio;
 

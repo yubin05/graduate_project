@@ -20,13 +20,13 @@ public class HitBoxController : HitBoxControllor_All
             // hit enemy
         {
             enemy = collision.gameObject.GetComponent<Enemy>();
-            enemy.Hit(player_script.player_sword_attack_power);
+            enemy?.Hit(player_script.player_sword_attack_power);
         }
         if (collision.gameObject.layer == 11)    // Boss(Layer)
             // hit boss
         {
             boss = collision.gameObject.GetComponent<Boss>();
-            boss.Hit(player_script.player_sword_attack_power);
+            boss?.Hit(player_script.player_sword_attack_power);
         }
     }
 }

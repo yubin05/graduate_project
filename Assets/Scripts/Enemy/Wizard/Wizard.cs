@@ -195,7 +195,7 @@ public class Wizard : Enemy
     {
         yield return new WaitForSeconds(0.3f);
         audioManager.PlayAudio("FireBall", 1f, 0.8f);
-        wizard_fireBall_controller.Instantiate_Fireball();
+        wizard_fireBall_controller.Instantiate_Fireball(this);
     }
 
     public override void Hit(int player_attack_power)

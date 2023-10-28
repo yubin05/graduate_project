@@ -63,9 +63,6 @@ AnimatorStateTransition:
   - m_ConditionMode: 4
     m_ConditionEvent: velocity_y
     m_EventTreshold: -1
-  - m_ConditionMode: 1
-    m_ConditionEvent: jumping
-    m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: isDamaged
     m_EventTreshold: 0
